@@ -1,0 +1,292 @@
+$base-unit: 8px;
+$spacing-xs: $base-unit / 2; // 4px
+$spacing-s: $base-unit; // 8px
+$spacing-m: $base-unit * 2; // 16px
+$spacing-l: $base-unit * 3; // 24px
+$spacing-xl: $base-unit * 5; // 40px
+
+$color: #111;
+
+$critical: #FFBBBB;
+$highlight: #A6FFF8;
+$info: #D3C1F7;
+$internal: #FBD9ED;
+$neutral: #DDEAF8;
+$success: #9FFFB8;
+$passive: #F4F8FC;
+$warning: #FFEEA9;
+
+$colors: (
+  "critical": $critical,
+  "highlight": $highlight,
+  "info": $info,
+  "internal": $internal,
+  "neutral": $neutral,
+  "success": $success,
+  "passive": $passive,
+  "warning": $warning
+);
+
+$border-setup: 1px solid #ddd;
+$border-radius-section: 16px;
+$border-radius-form: 8px;
+
+$button-border: 1px solid $color;
+$button-border-disabled: 1px solid rgba($color, 0.5);
+$button-border-radius: 6px;
+$button-padding: $spacing-xs $spacing-s;
+
+$alert-border-radius: 6px;
+$alert-border-radius-new: 8px;
+$alert-padding: $spacing-l;
+$alert-padding-new: $spacing-m $spacing-l;
+$alert-gap: $spacing-m;
+
+$dismiss-button-padding: 16px;
+$dismiss-button-padding-new: 6px;
+$dismiss-button-border-radius: 6px;
+
+$icon-size: 24px;
+
+$font-smaller: 0.9rem;
+
+$transition: all 0.15s ease-in-out;
+
+.App {
+  margin: $spacing-xl auto;
+  max-width: 1800px;
+  min-width: 375px;
+}
+
+h1 {
+  font-size: 1.5rem;
+}
+
+.mt-s {
+  margin-top: $spacing-s;
+}
+
+.mt-m {
+  margin-top: $spacing-m;
+}
+
+.mb-s {
+  margin-bottom: $spacing-s;
+}
+
+.mb-m {
+  margin-bottom: $spacing-m;
+}
+
+.section {
+  border: $border-setup;
+  border-radius: $border-radius-section;
+  margin: 0 $spacing-xl;
+  padding: $spacing-xl;
+
+  &:not(:last-of-type) {
+    margin-bottom: $spacing-l;
+  }
+
+  &--main {
+    display: grid;
+    gap: $spacing-l;
+    grid-template-columns: repeat(2, auto);
+    margin-top: $spacing-m;
+  }
+
+  .label {
+    display: block;
+    font-size: $font-smaller;
+    font-weight: bold;
+    margin-bottom: $spacing-s;
+  }
+}
+
+.section.setup {
+
+  .section--header {
+    display: flex;
+    flex-direction: row;
+    gap: $spacing-m;
+  }
+
+  .setup--block {
+    display: flex;
+    flex-direction: column;
+
+    &:not(:last-of-type) {
+      margin-bottom: $spacing-l;
+    }
+
+    form,
+    form div {
+      &:not(:last-of-type) {
+        margin-bottom: $spacing-s;
+      }
+    }
+
+    label {
+      text-transform: capitalize;
+    }
+
+    input,
+    textarea {
+      border: $border-setup;
+      border-radius: $border-radius-form;
+      padding: $spacing-s;
+    }
+
+    input[type="radio"],
+    input[type="checkbox"] {
+      margin-right: $spacing-s;
+    }
+
+    textarea {
+      width: 100%;
+    }
+  }
+
+  .reset-button {
+    background-color: transparent;
+    border: $button-border;
+    border-radius: $button-border-radius;
+    cursor: pointer;
+    font-size: $font-smaller;
+    padding: $button-padding;
+    transition: $transition;
+
+    &:disabled {
+      border: $button-border-disabled;
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+  }
+}
+
+.Alert {
+  border: 1px solid transparent;
+  border-radius: $alert-border-radius;
+  display: flex;
+  flex-direction: row;
+  gap: $spacing-m;
+  padding: $alert-padding;
+  position: relative;
+
+  $darker-value: 50%;
+
+  @each $color, $value in $colors {
+    &.#{$color} {
+      background-color: $value;
+    }
+
+    &.stroke.#{$color} {
+      border: 1px solid darken($value, $darker-value);
+    }
+
+    &.light.#{$color} {
+      background-color: transparentize($value, 0.5);
+    }
+  }
+
+  .Alert--header h2 {
+    font-size: 1.375rem;
+    margin-bottom: $spacing-m;
+  }
+
+  .Alert--body p {
+    margin-bottom: $spacing-m;
+  }
+
+  .Alert--icon {
+    height: $icon-size;
+    min-height: $icon-size;
+    min-width: $icon-size;
+    width: $icon-size;
+
+    @each $color, $value in $colors {
+      &.#{$color} svg path {
+        fill: darken($value, $darker-value) !important;
+      }
+    }
+  }
+
+  .Alert--action {
+    margin-top: $spacing-m;
+
+    .button-action {
+      align-items: center;
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      font-size: 1rem;
+      line-height: 150%;
+      text-decoration: underline;
+    }
+  }
+
+  .button-dismiss {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    border-radius: $dismiss-button-border-radius;
+    padding: $dismiss-button-padding;
+    position: absolute;
+    right: 0;
+    top: 0;
+
+    &:hover {
+      background-color: transparentize($color, 0.9);
+    }
+  }
+
+  &.new {
+    border-radius: $alert-border-radius-new;
+    padding: $alert-padding-new;
+
+    .Alert--header h3 {
+      font-size: 17.38px; // exact size from Figma component
+      line-height: 125%;
+    }
+
+    .Alert--body p {
+      line-height: 150%;
+      margin-bottom: 0;
+    }
+
+    .Alert--action {
+      margin-top: 0;
+    }
+
+    .button-dismiss {
+      padding: $dismiss-button-padding-new;
+      top: $spacing-s;
+      right: $spacing-s;
+    }
+  }
+}
+
+@media (max-width: 1200px) {
+  .section.examples .section--main {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
+}
+
+@media (max-width: 700px) {
+  .App {
+    margin: $spacing-l auto;
+  }
+
+  .section {
+    margin: 0 $spacing-l;
+    padding: $spacing-l;
+
+    .section--main {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto;
+    }
+  }
+}
