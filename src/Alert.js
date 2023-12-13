@@ -1,7 +1,7 @@
 import React from "react";
 import { PropTypes } from "prop-types";
 import classNames from "classnames";
-import { ALERT_EMPHASES, ALERT_ICONS, DISMISS } from "./AlertSettings";
+import { ALERT_EMPHASES, ALERT_ICONS, ALERT_NEW_BG, DISMISS } from "./AlertSettings";
 
 function Alert(props) {
 
@@ -31,26 +31,26 @@ function Alert(props) {
 
 Alert.defaultProps = {
     action: "Action",
+    bg: "default",
     body: "Body",
+    border: false,
+    borderLeft: false,
     emphasis: "info",
     header: "Header",
     iconColor: false,
     isDismissable: true,
-    lighterBackground: false,
-    border: false,
-    borderLeft: false,
 }
 
 Alert.propTypes = {
     action: PropTypes.string,
+    bg: PropTypes.oneOf(ALERT_NEW_BG),
     body: PropTypes.string,
+    border: PropTypes.bool,
+    borderLeft: PropTypes.bool,
     emphasis: PropTypes.oneOf(ALERT_EMPHASES),
     header: PropTypes.string,
     iconColor: PropTypes.bool,
     isDismissable: PropTypes.bool,
-    lighterBackground: PropTypes.bool,
-    border: PropTypes.bool,
-    borderLeft: PropTypes.bool,
 }
 
 export default Alert;
