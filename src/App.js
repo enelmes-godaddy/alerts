@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 // import Alert from '@ux/alert';
-import { useState } from "react";
 import { ALERT_EMPHASES, ALERT_NEW_BG } from "./AlertSettings";
 import Alert from "./Alert";
 import './App.scss';
@@ -15,27 +14,38 @@ function App() {
   const [bg, setBg] = useState(defaultBg);
   const [border, setBorder] = useState(false);
   const [borderLeft, setBorderLeft] = useState(false);
-  const [disableReset, setDisableReset] = useState(true);
   const [emphasis, setEmphasis] = useState(defaultEmphasis);
   const [iconColor, setIconColor] = useState(false);
   const [isDismissable, setIsDismissable] = useState(true);
   const [textAction, setTextAction] = useState(defaultTextAction);
   const [textBody, setTextBody] = useState(defaultTextBody);
   const [textHeader, setTextHeader] = useState(defaultTextHeader);
+  const [changesMade, setChangesMade] = useState(false);
 
-  
+  useEffect(() => {
+    setChangesMade(
+      bg !== defaultBg ||
+      border !== false ||
+      borderLeft !== false ||
+      emphasis !== defaultEmphasis ||
+      iconColor !== false ||
+      isDismissable !== true ||
+      textAction !== defaultTextAction ||
+      textBody !== defaultTextBody ||
+      textHeader !== defaultTextHeader
+    )}, [bg, border, borderLeft, emphasis, iconColor, isDismissable, textAction, textBody, textHeader]);
 
-  function handleOnClick() {
+  function handleReset() {
     setBg(defaultBg);
     setBorder(false);
     setBorderLeft(false);
-    setDisableReset(true);
     setEmphasis(defaultEmphasis);
     setIconColor(false);
     setIsDismissable(true);
     setTextAction(defaultTextAction);
     setTextBody(defaultTextBody);
     setTextHeader(defaultTextHeader);
+    setChangesMade(false);
   }
 
   return (
@@ -45,8 +55,8 @@ function App() {
           <h1>Setup</h1>
           <button
             className="reset-button"
-            onClick={handleOnClick}
-            disabled={disableReset}
+            onClick={handleReset}
+            disabled={!changesMade}
           >
             Reset All
           </button>
@@ -69,7 +79,6 @@ function App() {
                           checked={option === emphasis}
                           onChange={event => {
                             setEmphasis(event.target.value);
-                            setDisableReset(false);
                           }}
                         />
                         <label htmlFor={option}>
@@ -88,7 +97,6 @@ function App() {
                       checked={isDismissable}
                       onChange={event => {
                         setIsDismissable(event.target.checked)
-                        setDisableReset(false);
                       }}
                     />
                     <label htmlFor="make-dismissable">
@@ -108,7 +116,6 @@ function App() {
                       id="header-text"
                       onChange={e => {
                         setTextHeader(e.target.value);
-                        setDisableReset(false);
                       }}
                       placeholder="Header"
                     />
@@ -124,7 +131,6 @@ function App() {
                       id="body-text"
                       onChange={e => {
                         setTextBody(e.target.value);
-                        setDisableReset(false);
                       }}
                       placeholder="Body"
                       rows={5}
@@ -141,7 +147,6 @@ function App() {
                       id="action-link-label"
                       onChange={e => {
                         setTextAction(e.target.value)
-                        setDisableReset(false);
                       }}
                       placeholder="Action Link"
                     />
@@ -165,7 +170,6 @@ function App() {
                       checked={option === bg}
                       onChange={event => {
                         setBg(event.target.value);
-                        setDisableReset(false);
                       }}
                     />
                     <label htmlFor={option}>
@@ -184,7 +188,6 @@ function App() {
                   checked={border}
                   onChange={event => {
                     setBorder(event.target.checked);
-                    setDisableReset(false);
                   }}
                 />
                 <label htmlFor="new-alert-border">All-around border</label>
@@ -196,7 +199,6 @@ function App() {
                   checked={borderLeft}
                   onChange={event => {
                     setBorderLeft(event.target.checked);
-                    setDisableReset(false);
                   }}
                 />
                 <label htmlFor="new-alert-border-left">Thick left border</label>
@@ -211,7 +213,6 @@ function App() {
                   checked={iconColor}
                   onChange={event => {
                     setIconColor(event.target.checked)
-                    setDisableReset(false);
                   }}
                 />
                 <label htmlFor="new-alert-colored-icon">
@@ -223,7 +224,6 @@ function App() {
         </div>
       </div>
       
-      {/* EXAMPLES */}
       <div className="section examples">
         <h1 className="section--header">Examples</h1>
         <div className="section--main">
