@@ -6,7 +6,8 @@ $spacing-l: $base-unit * 3; // 24px
 $spacing-xl: $base-unit * 5; // 40px
 
 $color: #111;
-$bg: #fff;
+$bg--base: #fff;
+$bg--low-contrast: #f5f7f8;
 
 $critical: #FFBBBB;
 $highlight: #A6FFF8;
@@ -28,7 +29,7 @@ $colors: (
   "warning": $warning
 );
 
-$border-setup: 1px solid #ddd;
+$border-setup: 1px solid #d4dbe0;
 $border-radius-section: 16px;
 $border-radius-form: 8px;
 
@@ -40,7 +41,6 @@ $button-padding: $spacing-xs $spacing-s;
 $alert-border-radius: 6px;
 $alert-border-radius-new: 16px;
 $alert-padding: $spacing-l;
-$alert-padding-new: $spacing-m $spacing-l;
 $alert-gap: $spacing-m;
 
 $dismiss-button-padding: 16px;
@@ -80,7 +80,7 @@ $transition: all 0.15s ease-in-out;
   }
 
   .subsection {
-    background-color: whitesmoke;
+    background-color: $bg--low-contrast;
     border-radius: $border-radius-section;
     padding: $spacing-l;
 
@@ -252,7 +252,6 @@ $transition: all 0.15s ease-in-out;
 
     &.new {
       border-radius: $alert-border-radius-new;
-      padding: $alert-padding-new;
 
     .Alert--header h3 {
       font-size: 17.38px; // exact size from Figma component
@@ -275,7 +274,7 @@ $transition: all 0.15s ease-in-out;
     }
 
     &.bg-none {
-      background-color: $bg;
+      background-color: $bg--base;
     }
   }
 }
