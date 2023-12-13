@@ -6,6 +6,7 @@ $spacing-l: $base-unit * 3; // 24px
 $spacing-xl: $base-unit * 5; // 40px
 
 $color: #111;
+$bg: #fff;
 
 $critical: #FFBBBB;
 $highlight: #A6FFF8;
@@ -37,7 +38,7 @@ $button-border-radius: 6px;
 $button-padding: $spacing-xs $spacing-s;
 
 $alert-border-radius: 6px;
-$alert-border-radius-new: 8px;
+$alert-border-radius-new: 16px;
 $alert-padding: $spacing-l;
 $alert-padding-new: $spacing-m $spacing-l;
 $alert-gap: $spacing-m;
@@ -58,25 +59,9 @@ $transition: all 0.15s ease-in-out;
   min-width: 375px;
 }
 
-h1 {
-  font-size: 1.5rem;
-}
-
-.mt-s {
-  margin-top: $spacing-s;
-}
-
-.mt-m {
-  margin-top: $spacing-m;
-}
-
-.mb-s {
-  margin-bottom: $spacing-s;
-}
-
-.mb-m {
-  margin-bottom: $spacing-m;
-}
+/*********************
+ *** SECTION *********
+ ********************/
 
 .section {
   border: $border-setup;
@@ -88,27 +73,38 @@ h1 {
     margin-bottom: $spacing-l;
   }
 
-  &--main {
+  .section--main {
     display: grid;
-    gap: $spacing-l;
-    grid-template-columns: repeat(2, auto);
+    gap: $spacing-xl;
     margin-top: $spacing-m;
   }
 
-  .label {
-    display: block;
-    font-size: $font-smaller;
-    font-weight: bold;
-    margin-bottom: $spacing-s;
+  .subsection {
+    background-color: whitesmoke;
+    border-radius: $border-radius-section;
+    padding: $spacing-l;
+
+    .wrapper {
+      display: grid;
+      gap: $spacing-xl;
+      grid-template-columns: 1fr 2fr;
+    }
   }
 }
 
-.section.setup {
+/*********************
+ *** SETUP ***********
+ ********************/
 
+.section.setup {
   .section--header {
     display: flex;
     flex-direction: row;
     gap: $spacing-m;
+  }
+
+  .section--main {
+    grid-template-columns: 2fr 1fr;
   }
 
   .setup--block {
@@ -126,24 +122,18 @@ h1 {
       }
     }
 
-    label {
-      text-transform: capitalize;
-    }
-
     input,
     textarea {
       border: $border-setup;
       border-radius: $border-radius-form;
       padding: $spacing-s;
+      width: 100%;
     }
 
     input[type="radio"],
     input[type="checkbox"] {
       margin-right: $spacing-s;
-    }
-
-    textarea {
-      width: 100%;
+      width: auto !important;
     }
   }
 
@@ -164,6 +154,20 @@ h1 {
   }
 }
 
+/*********************
+ *** EXAMPLES ********
+ ********************/
+
+.section.examples {
+   .section--main {
+    grid-template-columns: repeat(2, auto);
+  }
+}
+
+/*********************
+ *** NEW ALERT *******
+ ********************/
+
 .Alert {
   border: 1px solid transparent;
   border-radius: $alert-border-radius;
@@ -180,12 +184,16 @@ h1 {
       background-color: $value;
     }
 
-    &.stroke.#{$color} {
+    &.bg-light.#{$color} {
+      background-color: transparentize($value, 0.5);
+    }
+
+    &.border.#{$color} {
       border: 1px solid darken($value, $darker-value);
     }
 
-    &.light.#{$color} {
-      background-color: transparentize($value, 0.5);
+    &.border-left.#{$color} {
+      border-left: 8px solid darken($value, $darker-value) !important;
     }
   }
 
@@ -240,11 +248,11 @@ h1 {
     &:hover {
       background-color: transparentize($color, 0.9);
     }
-  }
+    }
 
-  &.new {
-    border-radius: $alert-border-radius-new;
-    padding: $alert-padding-new;
+    &.new {
+      border-radius: $alert-border-radius-new;
+      padding: $alert-padding-new;
 
     .Alert--header h3 {
       font-size: 17.38px; // exact size from Figma component
@@ -265,8 +273,16 @@ h1 {
       top: $spacing-s;
       right: $spacing-s;
     }
+
+    &.bg-none {
+      background-color: $bg;
+    }
   }
 }
+
+/*********************
+ *** MEDIA QUERIES ***
+ ********************/
 
 @media (max-width: 1200px) {
   .section.examples .section--main {
@@ -275,7 +291,14 @@ h1 {
   }
 }
 
-@media (max-width: 700px) {
+@media (max-width: 1100px) {
+  .section.setup .section--main {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
+}
+
+@media (max-width: 950px) {
   .App {
     margin: $spacing-l auto;
   }
@@ -283,10 +306,60 @@ h1 {
   .section {
     margin: 0 $spacing-l;
     padding: $spacing-l;
-
-    .section--main {
-      grid-template-columns: 1fr;
-      grid-template-rows: auto;
-    }
   }
+
+  .section .section--main,
+  .section.setup .section--main {
+    gap: $spacing-l;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
+}
+
+@media (max-width: 750px) {
+  .section.setup .subsection .wrapper {
+    gap: $spacing-l;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
+}
+
+/*********************
+ *** GENERIC ETC. ****
+ ********************/
+
+h1 {
+  font-size: 1.6rem;
+}
+
+h2 {
+  font-size: 1.2rem;
+  margin-bottom: $spacing-m;
+}
+
+label {
+  text-transform: capitalize;
+}
+
+.label {
+  display: block;
+  font-size: $font-smaller;
+  font-weight: bold;
+  margin-bottom: $spacing-s;
+ }
+
+.mt-s {
+  margin-top: $spacing-s;
+}
+
+.mt-m {
+  margin-top: $spacing-m;
+}
+
+.mb-s {
+  margin-bottom: $spacing-s;
+}
+
+.mb-m {
+  margin-bottom: $spacing-m;
 }

@@ -5,11 +5,11 @@ import { ALERT_EMPHASES, ALERT_ICONS, DISMISS } from "./AlertSettings";
 
 function Alert(props) {
 
-    const { style, emphasis, header, body, action, lighterBackground, stroke, iconColor, isDismissable
+    const { action, bg, body, border, borderLeft, emphasis, header, iconColor, isDismissable, style
     } = props;
 
     return (
-        <div className={classNames("Alert", style, emphasis, { light: lighterBackground, stroke: stroke })}>
+        <div className={classNames("Alert", style, "bg-"+bg, emphasis, { border: border, "border-left": borderLeft })}>
             <div className={classNames("Alert--icon", iconColor && emphasis)}>
                 {ALERT_ICONS[emphasis]}
             </div>
@@ -37,8 +37,8 @@ Alert.defaultProps = {
     iconColor: false,
     isDismissable: true,
     lighterBackground: false,
-    stroke: false,
-    style: ("current" || "new"),
+    border: false,
+    borderLeft: false,
 }
 
 Alert.propTypes = {
@@ -49,8 +49,8 @@ Alert.propTypes = {
     iconColor: PropTypes.bool,
     isDismissable: PropTypes.bool,
     lighterBackground: PropTypes.bool,
-    stroke: PropTypes.bool,
-    style: PropTypes.string
+    border: PropTypes.bool,
+    borderLeft: PropTypes.bool,
 }
 
 export default Alert;
