@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from "react";
-// import Alert from '@ux/alert';
+import Alert from '@ux/alert';
+import Button from '@ux/button';
 import { ALERT_EMPHASES, ALERT_NEW_BG } from "./AlertSettings";
-import Alert from "./Alert";
+import NewAlert from "./components/NewAlert";
+import '@ux/alert/styles';
+import '@ux/button/styles';
 import './App.scss';
+
 
 function App() {
   const defaultEmphasis = "info";
@@ -21,6 +25,7 @@ function App() {
   const [textBody, setTextBody] = useState(defaultTextBody);
   const [textHeader, setTextHeader] = useState(defaultTextHeader);
   const [changesMade, setChangesMade] = useState(false);
+  const [show, setShow] = React.useState(true);
 
   useEffect(() => {
     setChangesMade(
@@ -34,7 +39,7 @@ function App() {
       textBody !== defaultTextBody ||
       textHeader !== defaultTextHeader
     )}, [bg, border, borderLeft, emphasis, iconColor, isDismissable, textAction, textBody, textHeader]);
-
+  
   function handleReset() {
     setBg(defaultBg);
     setBorder(false);
@@ -229,18 +234,29 @@ function App() {
         <div className="section--main">
           <div className="example">
             <p className="label">Current</p>
-            <Alert
-              action={textAction}
-              body={textBody}
-              emphasis={emphasis}
-              header={textHeader}
-              isDismissable={isDismissable}
-              style="current"
-            />
+            {emphasis === "passive"
+              ? <p className="text-passive">Not available from UXCore right now.</p>
+              : isDismissable
+                ? <Alert
+                    title={textHeader}
+                    emphasis={emphasis}
+                    actions={<Button design="inline" text={textAction} />}
+                    onClose={() => setShow()}
+                  >
+                    {textBody}
+                  </Alert>
+                : <Alert
+                    title={textHeader}
+                    emphasis={emphasis}
+                    actions={<Button design="inline" text={textAction} />}
+                  >
+                    {textBody}
+                  </Alert>
+            }
           </div>
           <div className="example">
             <p className="label">New</p>
-            <Alert
+            <NewAlert
               action={textAction}
               bg={bg}
               body={textBody}
@@ -250,7 +266,6 @@ function App() {
               header={textHeader}
               iconColor={iconColor}
               isDismissable={isDismissable}
-              style="new"
             />
           </div>
         </div>

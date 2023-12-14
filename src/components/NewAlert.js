@@ -1,21 +1,21 @@
 import React from "react";
 import { PropTypes } from "prop-types";
 import classNames from "classnames";
-import { ALERT_EMPHASES, ALERT_ICONS, ALERT_NEW_BG, DISMISS } from "./AlertSettings";
+import { ALERT_EMPHASES, ALERT_ICONS, ALERT_NEW_BG, DISMISS } from "../AlertSettings";
 
-function Alert(props) {
+function NewAlert(props) {
 
     const { action, bg, body, border, borderLeft, emphasis, header, iconColor, isDismissable, style
     } = props;
 
     return (
-        <div className={classNames("Alert", style, "bg-"+bg, emphasis, { border: border, "border-left": borderLeft })}>
+        <div className={classNames("Alert--New", style, "bg-"+bg, emphasis, { border: border, "border-left": borderLeft })}>
             <div className={classNames("Alert--icon", iconColor && emphasis)}>
                 {ALERT_ICONS[emphasis]}
             </div>
             <div className="Alert--content">
                 {header && <div className="Alert--header">
-                    {style === "new" ? <h3 className={classNames({ "mb-s": body })}>{header}</h3> : <h2>{header}</h2>}
+                    <h3 className={classNames({ "mb-s": body })}>{header}</h3>
                 </div>}
                 {body && <div className="Alert--body">
                     <p>{body}</p>
@@ -29,7 +29,7 @@ function Alert(props) {
     );
 }
 
-Alert.defaultProps = {
+NewAlert.defaultProps = {
     action: "Action",
     bg: "default",
     body: "Body",
@@ -41,7 +41,7 @@ Alert.defaultProps = {
     isDismissable: true,
 }
 
-Alert.propTypes = {
+NewAlert.propTypes = {
     action: PropTypes.string,
     bg: PropTypes.oneOf(ALERT_NEW_BG),
     body: PropTypes.string,
@@ -53,4 +53,4 @@ Alert.propTypes = {
     isDismissable: PropTypes.bool,
 }
 
-export default Alert;
+export default NewAlert;
