@@ -10,9 +10,9 @@ export const ALERT_EMPHASES = [
 ]
 
 export const ALERT_NEW_BG = [
-    "default",
+    "none",
     "light",
-    "none"
+    "default"
 ]
 
 export const ALERT_ICONS = {

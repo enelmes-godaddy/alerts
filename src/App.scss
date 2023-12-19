@@ -25,7 +25,7 @@ $warning: #FFEEA9;
 $colors: (
   "critical": $critical,
   "highlight": $highlight,
-  "info": $info,
+  "info": $neutral,
   "internal": $internal,
   "neutral": $neutral,
   "success": $success,
@@ -44,7 +44,8 @@ $button-padding: $spacing-xs $spacing-s;
 
 $alert-border-radius: 16px;
 $alert-gap: $spacing-m;
-$alert-padding: $spacing-l;
+$alert-padding-right: $spacing-xl + $spacing-m; // 56px
+$alert-inner-padding: $spacing-l $alert-padding-right $spacing-l 0;
 
 $dismiss-button-border-radius: 6px; // from Figma minimal icon button
 $dismiss-button-size: 20px;
@@ -57,7 +58,7 @@ $transition: all 0.15s ease-in-out;
 
 .App {
   margin: $spacing-xl auto;
-  max-width: 1800px;
+  // max-width: 1800px;
   min-width: 375px;
 }
 
@@ -103,6 +104,12 @@ $transition: all 0.15s ease-in-out;
     display: flex;
     flex-direction: row;
     gap: $spacing-m;
+
+    .header-actions {
+      display: flex;
+      flex-direction: row;
+      gap: $spacing-s;
+    }
   }
 
   .section--main {
@@ -137,21 +144,26 @@ $transition: all 0.15s ease-in-out;
       margin-right: $spacing-s;
       width: auto !important;
     }
+
+    .label-wrapper {
+      align-items: center;
+      display: flex;
+      gap: $spacing-s;
+      margin-bottom: $spacing-s;
+
+      label {
+        margin-bottom: 0;
+      }
+    }
   }
 
-  .reset-button {
-    background-color: transparent;
-    border: $button-border;
-    border-radius: $button-border-radius;
-    cursor: pointer;
-    font-size: $font-smaller;
-    padding: $button-padding;
-    transition: $transition;
+  .cta-block {
+    display: flex;
+    gap: $spacing-l;
+    flex-direction: row;
 
-    &:disabled {
-      border: $button-border-disabled;
-      cursor: not-allowed;
-      opacity: 0.5;
+    form {
+      width: 50%;
     }
   }
 }
@@ -176,8 +188,18 @@ $transition: all 0.15s ease-in-out;
   display: flex;
   flex-direction: row;
   gap: $spacing-m;
-  padding: $alert-padding;
+  overflow: hidden;
+  padding-left: $spacing-l;
   position: relative;
+  // min-width: 100%;
+  
+  .inner {
+    display: flex;
+    flex-direction: row;
+    gap: $spacing-m;
+    width: 100%;
+    padding: $alert-inner-padding;
+  }
 
   $darker-value: 50%;
 
@@ -194,17 +216,18 @@ $transition: all 0.15s ease-in-out;
       border: 1px solid darken($value, $darker-value);
     }
 
-    &.border-left.#{$color} {
-      border-left: 8px solid darken($value, $darker-value) !important;
+    &.#{$color} .thick-border {
+      background-color: darken($value, $darker-value);
+      width: 12px;
     }
   }
 
-  &.bg-none {
-    background-color: $bg--base;
-  }
-  
   &.border-left {
-    padding-left: $spacing-m !important;
+    padding-left: 0;
+  }
+
+  &.bg-none {
+    background-color: $bg--base !important;
   }
 
   .Alert--icon {
@@ -230,20 +253,28 @@ $transition: all 0.15s ease-in-out;
     margin-bottom: 0;
   }
 
-  .Alert--action {
-    margin-top: 0;
+  .Alert--content {
+    display: flex;
+    gap: $spacing-l;
+    flex-direction: row;
+    flex: 100%;
+    flex-wrap: wrap;
 
-    .button-action {
+    .text-lockup {
+      flex-grow: 1;
+    }
+
+    .action-toolbar {
       align-items: center;
-      background-color: transparent;
-      border: none;
-      cursor: pointer;
       display: flex;
-      font-size: 1rem;
-      line-height: 150%;
-      text-decoration: underline;
+      gap: $spacing-s;
+      flex-grow: 0;
+      flex-direction: row;
+      flex-wrap: wrap;
+      min-width: fit-content;
     }
   }
+
   
   .button-dismiss {
     align-items: center;

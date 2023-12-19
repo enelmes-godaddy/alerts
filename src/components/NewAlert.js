@@ -1,28 +1,36 @@
 import React from "react";
 import { PropTypes } from "prop-types";
 import classNames from "classnames";
+import Button from '@ux/button';
 import { ALERT_EMPHASES, ALERT_ICONS, ALERT_NEW_BG, DISMISS } from "../AlertSettings";
+import '@ux/button/styles';
 
 function NewAlert(props) {
 
-    const { action, bg, body, border, borderLeft, emphasis, header, iconColor, isDismissable, style
+    const { bg, body, border, borderLeft, coloredIcon, ctaAux, ctaMain, emphasis, header, isDismissable, style
     } = props;
 
     return (
         <div className={classNames("Alert--New", style, "bg-"+bg, emphasis, { border: border, "border-left": borderLeft })}>
-            <div className={classNames("Alert--icon", iconColor && emphasis)}>
-                {ALERT_ICONS[emphasis]}
-            </div>
-            <div className="Alert--content">
-                {header && <div className="Alert--header">
-                    <h3 className={classNames({ "mb-s": body })}>{header}</h3>
-                </div>}
-                {body && <div className="Alert--body">
-                    <p>{body}</p>
-                </div>}
-                {action && <div className="Alert--action">
-                    <button className={classNames("button-action", { "mt-m": (body || header) })}>{action}</button>
-                </div>}
+            {borderLeft && <div className="thick-border"></div>}
+            <div className="inner">
+                <div className={classNames("Alert--icon", coloredIcon && emphasis)}>
+                    {ALERT_ICONS[emphasis]}
+                </div>
+                <div className="Alert--content">
+                    <div className="text-lockup">
+                        {header && <div className="Alert--header">
+                            <h3 className={classNames({ "mb-s": body })}>{header}</h3>
+                        </div>}
+                        {body && <div className="Alert--body">
+                            <p>{body}</p>
+                        </div>}
+                    </div>
+                    {(ctaMain || ctaAux) && <div className="action-toolbar">
+                        {ctaMain && <Button design="secondary" size="small" text={ctaMain} />}
+                        {ctaAux && <Button design="tertiary" size="small" text={ctaAux} />}
+                    </div>}
+                </div>
             </div>
             {isDismissable && <button className="button-dismiss">{DISMISS}</button>}
         </div >

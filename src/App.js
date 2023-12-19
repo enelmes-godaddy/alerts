@@ -1,70 +1,106 @@
 import React, { useEffect, useState } from "react";
-import Alert from '@ux/alert';
-import Button from '@ux/button';
+import Alert from "@ux/alert";
+import Button from "@ux/button";
 import { ALERT_EMPHASES, ALERT_NEW_BG } from "./AlertSettings";
 import NewAlert from "./components/NewAlert";
-import '@ux/alert/styles';
-import '@ux/button/styles';
-import './App.scss';
+import "@ux/alert/styles";
+import "@ux/button/styles";
+import "@ux/icon/delete/index.css";
+import '@ux/text-input/styles';
+import "./App.scss";
 
 
 function App() {
+  const defaultBg = "none";
+  const defaultBorder = true;
+  const defaultBorderLeft = true;
+  const defaultColoredIcon = true;
   const defaultEmphasis = "info";
-  const defaultTextHeader = "Header";
-  const defaultTextBody = "Body";
-  const defaultTextAction = "Action";
-  const defaultBg = "default";
+  const defaultIsDismissable = true;
+  const defaultTxtHeader = "Header";
+  const defaultTxtBody = "Body";
+  const defaultTxtCtaMain = "Main Action";
+  const defaultTxtCtaAux = "Auxiliary Action";
   
   const [bg, setBg] = useState(defaultBg);
-  const [border, setBorder] = useState(false);
-  const [borderLeft, setBorderLeft] = useState(false);
+  const [border, setBorder] = useState(defaultBorder);
+  const [borderLeft, setBorderLeft] = useState(defaultBorderLeft);
   const [emphasis, setEmphasis] = useState(defaultEmphasis);
-  const [iconColor, setIconColor] = useState(false);
-  const [isDismissable, setIsDismissable] = useState(true);
-  const [textAction, setTextAction] = useState(defaultTextAction);
-  const [textBody, setTextBody] = useState(defaultTextBody);
-  const [textHeader, setTextHeader] = useState(defaultTextHeader);
+  const [coloredIcon, setColoredIcon] = useState(defaultColoredIcon);
+  const [isDismissable, setIsDismissable] = useState(defaultIsDismissable);
+  const [txtBody, setTxtBody] = useState(defaultTxtBody);
+  const [txtCtaAux, setTxtCtaAux] = useState(defaultTxtCtaAux);
+  const [txtCtaMain, setTxtCtaMain] = useState(defaultTxtCtaMain);
+  const [txtHeader, setTxtHeader] = useState(defaultTxtHeader);
   const [changesMade, setChangesMade] = useState(false);
   const [show, setShow] = React.useState(true);
 
   useEffect(() => {
     setChangesMade(
       bg !== defaultBg ||
-      border !== false ||
-      borderLeft !== false ||
+      border !== defaultBorder ||
+      borderLeft !== defaultBorderLeft ||
+      coloredIcon !== defaultColoredIcon ||
       emphasis !== defaultEmphasis ||
-      iconColor !== false ||
-      isDismissable !== true ||
-      textAction !== defaultTextAction ||
-      textBody !== defaultTextBody ||
-      textHeader !== defaultTextHeader
-    )}, [bg, border, borderLeft, emphasis, iconColor, isDismissable, textAction, textBody, textHeader]);
+      isDismissable !== defaultIsDismissable ||
+      txtBody !== defaultTxtBody ||
+      txtCtaAux !== defaultTxtCtaAux ||
+      txtCtaMain !== defaultTxtCtaMain ||
+      txtHeader !== defaultTxtHeader
+    )
+  }, [bg, border, borderLeft, emphasis, coloredIcon, isDismissable, txtBody, txtCtaAux, txtCtaMain, txtHeader]);
   
   function handleReset() {
     setBg(defaultBg);
-    setBorder(false);
-    setBorderLeft(false);
+    setBorder(defaultBorder);
+    setBorderLeft(defaultBorderLeft);
     setEmphasis(defaultEmphasis);
-    setIconColor(false);
-    setIsDismissable(true);
-    setTextAction(defaultTextAction);
-    setTextBody(defaultTextBody);
-    setTextHeader(defaultTextHeader);
+    setColoredIcon(defaultColoredIcon);
+    setIsDismissable(defaultIsDismissable);
+    setTxtBody(defaultTxtBody);
+    setTxtCtaAux(defaultTxtCtaAux);
+    setTxtCtaMain(defaultTxtCtaMain);
+    setTxtHeader(defaultTxtHeader);
     setChangesMade(false);
   }
+
+  function addSampleContent() {
+    setEmphasis("critical");
+    setTxtBody("You will be logged out in 12 hours for security purposes. Log in again to re-authenticate for 7 days.");
+    setTxtHeader("Re-authentication needed");
+    setTxtCtaAux("Remind Me Later");
+    setTxtCtaMain("Re-Authenticate Now");
+  }
+
+  const currentAlertActions = (
+    <>
+      {txtCtaMain && <Button design="inline" text={txtCtaMain} />}
+      {txtCtaAux && <Button design="inline" text={txtCtaAux} />}
+    </>
+  );
 
   return (
     <div className="App">
       <div className="section setup">
         <div className="section--header">
           <h1>Setup</h1>
-          <button
-            className="reset-button"
-            onClick={handleReset}
-            disabled={!changesMade}
-          >
-            Reset All
-          </button>
+          <div className="header-actions">            
+            <Button
+              design="secondary"
+              size="small"
+              text="Reset All"
+              onClick={handleReset}
+              disabled={!changesMade}
+            />
+            <Button
+              design="secondary"
+              size="small"
+              text="Use Sample Content"
+              onClick={addSampleContent}
+              // TODO: Update this
+              // disabled={sampleContent}
+            />
+          </div>
         </div>
         <div className="section--main">
           <div className="subsection">
@@ -113,47 +149,72 @@ function App() {
               <div>
                 <div className="setup--block">
                   <form>
-                    <label className="label" htmlFor="header-text">
-                      Header Text – Optional
-                    </label>
+                    <div className="label-wrapper">
+                      <label className="label" htmlFor="header-text">
+                        Header Text
+                      </label>
+                      <Button size="small" design="inline" text="Clear" onClick={() => setTxtHeader("")} disabled={!txtHeader} />
+                    </div>
                     <input
-                      value={textHeader}
+                      value={txtHeader}
                       id="header-text"
                       onChange={e => {
-                        setTextHeader(e.target.value);
+                        setTxtHeader(e.target.value);
                       }}
-                      placeholder="Header"
+                      placeholder={defaultTxtHeader}
                     />
                   </form>
                 </div>
                 <div className="setup--block">
                   <form>
-                    <label className="label" htmlFor="body-text">
-                      Body Text
-                    </label>
+                    <div className="label-wrapper">
+                      <label className="label" htmlFor="body-text">
+                        Body Text
+                      </label>
+                      <Button size="small" design="inline" text="Clear" onClick={() => setTxtBody("")} disabled={!txtBody} />
+                    </div>
                     <textarea
-                      value={textBody}
+                      value={txtBody}
                       id="body-text"
                       onChange={e => {
-                        setTextBody(e.target.value);
+                        setTxtBody(e.target.value);
                       }}
-                      placeholder="Body"
+                      placeholder={defaultTxtBody}
                       rows={5}
                     />
                   </form>
                 </div>
-                <div className="setup--block">
+                <div className="setup--block cta-block">
                   <form>
-                    <label className="label" htmlFor="action-link-label">
-                      CTA label – Optional
-                    </label>
+                    <div className="label-wrapper">
+                      <label className="label" htmlFor="main-action-label">
+                        Main Action
+                      </label>
+                      <Button size="small" design="inline" text="Clear" onClick={() => setTxtCtaMain("")} disabled={!txtCtaMain} />
+                    </div>
                     <input
-                      value={textAction}
-                      id="action-link-label"
+                      value={txtCtaMain}
+                      id="main-action-label"
                       onChange={e => {
-                        setTextAction(e.target.value)
+                        setTxtCtaMain(e.target.value)
                       }}
-                      placeholder="Action Link"
+                      placeholder={defaultTxtCtaMain}
+                    />
+                  </form>
+                  <form>
+                    <div className="label-wrapper">
+                      <label className="label" htmlFor="auxiliary-action-label">
+                        Auxiliary Action
+                      </label>
+                      <Button size="small" design="inline" text="Clear" onClick={() => setTxtCtaAux("")} disabled={!txtCtaAux} />
+                    </div>
+                    <input
+                      value={txtCtaAux}
+                      id="auxiliary-action-label"
+                      onChange={e => {
+                        setTxtCtaAux(e.target.value)
+                      }}
+                      placeholder="Auxiliary Action"
                     />
                   </form>
                 </div>
@@ -215,9 +276,9 @@ function App() {
                 <input
                   type="checkbox"
                   id="new-alert-colored-icon"
-                  checked={iconColor}
+                  checked={coloredIcon}
                   onChange={event => {
-                    setIconColor(event.target.checked)
+                    setColoredIcon(event.target.checked)
                   }}
                 />
                 <label htmlFor="new-alert-colored-icon">
@@ -235,38 +296,42 @@ function App() {
           <div className="example">
             <p className="label">Current</p>
             {emphasis === "passive"
-              ? <p className="text-passive">Not available from UXCore right now.</p>
+              ? <p className="text-passive">Variant exists in Figma but isn't supported in UXCore.</p>
               : isDismissable
                 ? <Alert
-                    title={textHeader}
+                    title={txtHeader}
                     emphasis={emphasis}
-                    actions={<Button design="inline" text={textAction} />}
+                    actions={currentAlertActions}
                     onClose={() => setShow()}
                   >
-                    {textBody}
+                    {txtBody}
                   </Alert>
                 : <Alert
-                    title={textHeader}
+                    title={txtHeader}
                     emphasis={emphasis}
-                    actions={<Button design="inline" text={textAction} />}
+                    actions={currentAlertActions}
                   >
-                    {textBody}
+                    {txtBody}
                   </Alert>
             }
           </div>
           <div className="example">
             <p className="label">New</p>
-            <NewAlert
-              action={textAction}
-              bg={bg}
-              body={textBody}
-              border={border}
-              borderLeft={borderLeft}
-              emphasis={emphasis}
-              header={textHeader}
-              iconColor={iconColor}
-              isDismissable={isDismissable}
-            />
+            {emphasis === "neutral" || emphasis === "passive"
+              ? <p className="text-passive">Variant set for retirement.</p>
+              : <NewAlert
+                  bg={bg}
+                  body={txtBody}
+                  border={border}
+                  borderLeft={borderLeft}
+                  ctaAux={txtCtaAux}
+                  ctaMain={txtCtaMain}
+                  emphasis={emphasis}
+                  header={txtHeader}
+                  coloredIcon={coloredIcon}
+                  isDismissable={isDismissable}
+                />
+            }
           </div>
         </div>
       </div>
