@@ -21,6 +21,12 @@ function App() {
   const defaultTxtBody = "Body";
   const defaultTxtCtaMain = "Main Action";
   const defaultTxtCtaAux = "Auxiliary Action";
+
+  const sampleEmphasis = "critical";
+  const sampleTxtBody = "You will be logged out in 12 hours for security purposes. Log in again to re-authenticate for 7 days.";
+  const sampleTxtCtaAux = "Remind Me Later";
+  const sampleTxtCtaMain = "Re-Authenticate Now"
+  const sampleTxtHeader = "Re-authentication needed";
   
   const [bg, setBg] = useState(defaultBg);
   const [border, setBorder] = useState(defaultBorder);
@@ -33,8 +39,9 @@ function App() {
   const [txtCtaMain, setTxtCtaMain] = useState(defaultTxtCtaMain);
   const [txtHeader, setTxtHeader] = useState(defaultTxtHeader);
   const [changesMade, setChangesMade] = useState(false);
+  const [sampleContent, setSampleContent] = useState(false);
   const [show, setShow] = React.useState(true);
-
+    
   useEffect(() => {
     setChangesMade(
       bg !== defaultBg ||
@@ -47,8 +54,15 @@ function App() {
       txtCtaAux !== defaultTxtCtaAux ||
       txtCtaMain !== defaultTxtCtaMain ||
       txtHeader !== defaultTxtHeader
+    );
+    setSampleContent(
+      emphasis === sampleEmphasis &&
+      txtBody === sampleTxtBody &&
+      txtCtaAux === sampleTxtCtaAux &&
+      txtCtaMain === sampleTxtCtaMain &&
+      txtHeader === sampleTxtHeader
     )
-  }, [bg, border, borderLeft, emphasis, coloredIcon, isDismissable, txtBody, txtCtaAux, txtCtaMain, txtHeader]);
+  }, [bg, border, borderLeft, emphasis, coloredIcon, isDismissable, txtBody, txtCtaAux, txtCtaMain, txtHeader, defaultBg, defaultBorder, defaultBorderLeft, defaultColoredIcon, defaultEmphasis, defaultIsDismissable, defaultTxtBody, defaultTxtCtaAux, defaultTxtCtaMain, defaultTxtHeader, sampleEmphasis, sampleTxtBody, sampleTxtCtaAux, sampleTxtCtaMain, sampleTxtHeader]);
   
   function handleReset() {
     setBg(defaultBg);
@@ -64,12 +78,13 @@ function App() {
     setChangesMade(false);
   }
 
-  function addSampleContent() {
-    setEmphasis("critical");
-    setTxtBody("You will be logged out in 12 hours for security purposes. Log in again to re-authenticate for 7 days.");
-    setTxtHeader("Re-authentication needed");
-    setTxtCtaAux("Remind Me Later");
-    setTxtCtaMain("Re-Authenticate Now");
+  function handleSampleContent() {
+    setEmphasis(sampleEmphasis);
+    setTxtBody(sampleTxtBody);
+    setTxtCtaAux(sampleTxtCtaAux);
+    setTxtCtaMain(sampleTxtCtaMain);
+    setTxtHeader(sampleTxtHeader);
+    setSampleContent(true);
   }
 
   const currentAlertActions = (
@@ -96,9 +111,8 @@ function App() {
               design="secondary"
               size="small"
               text="Use Sample Content"
-              onClick={addSampleContent}
-              // TODO: Update this
-              // disabled={sampleContent}
+              onClick={handleSampleContent}
+              disabled={sampleContent}
             />
           </div>
         </div>
