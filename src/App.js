@@ -309,7 +309,7 @@ function App() {
         <div className="section--main">
           <div className="example">
             <p className="label">Current</p>
-            {emphasis === "passive"
+            {emphasis === "passive" || emphasis === "premium"
               ? <p className="text-passive">Variant exists in Figma but isn't supported in UXCore.</p>
               : isDismissable
                 ? <Alert

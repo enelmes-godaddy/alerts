@@ -8,11 +8,12 @@ $spacing-m: $base-unit * 2; // 16px
 $spacing-l: $base-unit * 3; // 24px
 $spacing-xl: $base-unit * 5; // 40px
 
-$color: #111;
-$color--passive: #767676;
 $bg--base: #fff;
 $bg--low-contrast: #f5f7f8;
+$color: #111;
+$color--passive: #767676;
 
+/* feedback colours – default */
 $critical: #FFBBBB;
 $highlight: #A6FFF8;
 $info: #D3C1F7;
@@ -20,17 +21,38 @@ $internal: #FBD9ED;
 $neutral: #DDEAF8;
 $success: #9FFFB8;
 $passive: #F4F8FC;
+$premium: $bg--base;
 $warning: #FFEEA9;
 
 $colors: (
   "critical": $critical,
   "highlight": $highlight,
   "info": $neutral,
-  "internal": $internal,
+  "internal": $passive,
   "neutral": $neutral,
   "success": $success,
   "passive": $passive,
+  "premium": $premium,
   "warning": $warning
+);
+
+/* feedback colours – high contrast */
+$critical--high-contrast: #DB1802;
+$highlight--high-contrast: #09757A;
+$info--high-contrast: #145FA9;
+$internal--high-contrast: #767676;
+$premium--high-contrast: #B4006C;
+$success--high-contrast: #00A63F;
+$warning--high-contrast: #DE7C00;
+
+$colors--high-contrast: (
+  "critical": $critical--high-contrast,
+  "highlight": $highlight--high-contrast,
+  "info": $info--high-contrast,
+  "internal": $internal--high-contrast,
+  "premium": $premium--high-contrast,
+  "success": $success--high-contrast,
+  "warning": $warning--high-contrast
 );
 
 $border-setup: 1px solid #d4dbe0;
@@ -42,10 +64,11 @@ $button-border-disabled: 1px solid rgba($color, 0.5);
 $button-border-radius: 6px;
 $button-padding: $spacing-xs $spacing-s;
 
-$alert-border-radius: 16px;
+$alert-border-radius: 8px;
 $alert-gap: $spacing-m;
 $alert-padding-right: $spacing-xl + $spacing-m; // 56px
 $alert-inner-padding: $spacing-l $alert-padding-right $spacing-l 0;
+$alert-thick-border: 12px;
 
 $dismiss-button-border-radius: 6px; // from Figma minimal icon button
 $dismiss-button-size: 20px;
@@ -191,7 +214,6 @@ $transition: all 0.15s ease-in-out;
   overflow: hidden;
   padding-left: $spacing-l;
   position: relative;
-  // min-width: 100%;
   
   .inner {
     display: flex;
@@ -201,8 +223,6 @@ $transition: all 0.15s ease-in-out;
     padding: $alert-inner-padding;
   }
 
-  $darker-value: 50%;
-
   @each $color, $value in $colors {
     &.#{$color} {
       background-color: $value;
@@ -211,14 +231,16 @@ $transition: all 0.15s ease-in-out;
     &.bg-light.#{$color} {
       background-color: transparentize($value, 0.5);
     }
+  }
 
+  @each $color, $value in $colors--high-contrast {
     &.border.#{$color} {
-      border: 1px solid darken($value, $darker-value);
+      border: 1px solid $value;
     }
 
     &.#{$color} .thick-border {
-      background-color: darken($value, $darker-value);
-      width: 12px;
+      background-color: $value;
+      width: $alert-thick-border;
     }
   }
 
@@ -236,9 +258,9 @@ $transition: all 0.15s ease-in-out;
     min-width: $icon-size;
     width: $icon-size;
 
-    @each $color, $value in $colors {
+    @each $color, $value in $colors--high-contrast {
       &.#{$color} svg path {
-        fill: darken($value, $darker-value) !important;
+        fill: $value !important;
       }
     }
   }
