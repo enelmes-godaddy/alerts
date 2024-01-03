@@ -132,7 +132,7 @@ $transition: all 0.15s ease-in-out;
     .header-actions {
       display: flex;
       flex-direction: row;
-      flex-wrap: wrap;
+      flex-wrap:wrap;
       gap: $spacing-s;
     }
   }
@@ -207,23 +207,17 @@ $transition: all 0.15s ease-in-out;
  *** NEW ALERT *******
  ********************/
 
-.Alert--New {
+.Alert-New {
   border: 1px solid transparent;
   border-radius: $alert-border-radius;
+  container-name: Alert-New;
+  container-type: inline-size;
   display: flex;
   flex-direction: row;
   gap: $spacing-m;
   overflow: hidden;
   padding-left: $spacing-l;
   position: relative;
-  
-  .inner {
-    display: flex;
-    flex-direction: row;
-    gap: $spacing-m;
-    width: 100%;
-    padding: $alert-inner-padding;
-  }
 
   @each $color, $value in $colors {
     &.#{$color} {
@@ -254,6 +248,36 @@ $transition: all 0.15s ease-in-out;
     background-color: $bg--base !important;
   }
 
+  .Alert--content {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    gap: $spacing-l;
+    justify-content: space-between;
+    padding: $alert-inner-padding;
+    width: 100%;
+  }
+
+  .Alert--icon-and-text-wrapper {
+    display: flex;
+    flex-direction: row;
+    gap: $spacing-m;
+
+    .text-lockup {
+      flex-grow: 1;
+    }
+  }
+
+  .Alert--actions {
+    align-items: center;
+    display: flex;
+    gap: $spacing-s;
+    flex-direction: row;
+    flex-grow: 0;
+    flex-wrap: wrap;
+    min-width: fit-content;
+  }
+
   .Alert--icon {
     height: $icon-size;
     min-height: $icon-size;
@@ -276,29 +300,6 @@ $transition: all 0.15s ease-in-out;
     line-height: 150%;
     margin-bottom: 0;
   }
-
-  .Alert--content {
-    display: flex;
-    gap: $spacing-l;
-    flex-direction: row;
-    flex: 100%;
-    flex-wrap: wrap;
-
-    .text-lockup {
-      flex-grow: 1;
-    }
-
-    .action-toolbar {
-      align-items: center;
-      display: flex;
-      gap: $spacing-s;
-      flex-grow: 0;
-      flex-direction: row;
-      flex-wrap: wrap;
-      min-width: fit-content;
-    }
-  }
-
   
   .button-dismiss {
     align-items: center;
@@ -316,6 +317,23 @@ $transition: all 0.15s ease-in-out;
 
     &:hover {
       background-color: transparentize($color, 0.9);
+    }
+  }
+}
+
+/*************************
+ *** CONTAINER QUERIES ***
+ ************************/
+
+@container Alert-New (max-width: 692px) { // 2px offset
+  .Alert-New {
+    .Alert--content {
+      align-items: start;
+      flex-direction: column;
+    }
+
+    .Alert--actions {
+      padding-left: $spacing-m + $spacing-l;
     }
   }
 }

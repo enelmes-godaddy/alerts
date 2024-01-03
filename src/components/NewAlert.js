@@ -11,13 +11,13 @@ function NewAlert(props) {
     } = props;
 
     return (
-        <div className={classNames("Alert--New", style, "bg-"+bg, emphasis, { border: border, "border-left": borderLeft })}>
+        <div className={classNames("Alert-New", style, "bg-"+bg, emphasis, { border: border, "border-left": borderLeft })}>
             {borderLeft && <div className="thick-border"></div>}
-            <div className="inner">
-                <div className={classNames("Alert--icon", coloredIcon && emphasis)}>
-                    {ALERT_ICONS[emphasis]}
-                </div>
-                <div className="Alert--content">
+            <div className="Alert--content">
+                <div className="Alert--icon-and-text-wrapper">
+                    <div className={classNames("Alert--icon", coloredIcon && emphasis)}>
+                        {ALERT_ICONS[emphasis]}
+                    </div>
                     <div className="text-lockup">
                         {header && <div className="Alert--header">
                             <h3 className={classNames({ "mb-s": body })}>{header}</h3>
@@ -26,11 +26,11 @@ function NewAlert(props) {
                             <p>{body}</p>
                         </div>}
                     </div>
-                    {(ctaMain || ctaAux) && <div className="action-toolbar">
-                        {ctaMain && <Button design="secondary" size="small" text={ctaMain} />}
-                        {ctaAux && <Button design="tertiary" size="small" text={ctaAux} />}
-                    </div>}
                 </div>
+                {(ctaMain || ctaAux) && <div className="Alert--actions">
+                    {ctaMain && <Button design="secondary" size="small" text={ctaMain} />}
+                    {ctaAux && <Button design="tertiary" size="small" text={ctaAux} />}
+                </div>}
             </div>
             {isDismissable && <button className="button-dismiss">{DISMISS}</button>}
         </div >
