@@ -126,11 +126,13 @@ $transition: all 0.15s ease-in-out;
   .section--header {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     gap: $spacing-m;
 
     .header-actions {
       display: flex;
       flex-direction: row;
+      flex-wrap: wrap;
       gap: $spacing-s;
     }
   }
@@ -359,6 +361,16 @@ $transition: all 0.15s ease-in-out;
     gap: $spacing-l;
     grid-template-columns: 1fr;
     grid-template-rows: auto;
+  }
+}
+
+@media (max-width: 550px) {
+  .section.setup .cta-block {
+    flex-direction: column;
+
+    form {
+      width: 100%;
+    }
   }
 }
 
