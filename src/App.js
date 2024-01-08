@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Alert from "@ux/alert";
 import Button from "@ux/button";
-import { ALERT_EMPHASES, ALERT_NEW_BG } from "./AlertSettings";
+import { ALERT_EMPHASES, ALERT_NEW_BG, ALERT_NEW_TEXT } from "./AlertSettings";
 import NewAlert from "./components/NewAlert";
 import "@ux/alert/styles";
 import "@ux/button/styles";
@@ -17,10 +17,11 @@ function App() {
   const defaultColoredIcon = true;
   const defaultEmphasis = "info";
   const defaultIsDismissable = true;
-  const defaultTxtHeader = "Header";
   const defaultTxtBody = "Body";
-  const defaultTxtCtaMain = "Main Action";
+  const defaultTxtHeader = "Header";
   const defaultTxtCtaAux = "Auxiliary Action";
+  const defaultTxtCtaMain = "Main Action";
+  const defaultTxtLockup = "small";
 
   const sampleEmphasis = "critical";
   const sampleTxtBody = "You will be logged out in 12 hours for security purposes. Log in again to re-authenticate for 7 days.";
@@ -38,6 +39,7 @@ function App() {
   const [txtCtaAux, setTxtCtaAux] = useState(defaultTxtCtaAux);
   const [txtCtaMain, setTxtCtaMain] = useState(defaultTxtCtaMain);
   const [txtHeader, setTxtHeader] = useState(defaultTxtHeader);
+  const [txtLockup, setTxtLockup] = useState(defaultTxtLockup);
   const [changesMade, setChangesMade] = useState(false);
   const [sampleContent, setSampleContent] = useState(false);
   const [show, setShow] = React.useState(true);
@@ -53,7 +55,8 @@ function App() {
       txtBody !== defaultTxtBody ||
       txtCtaAux !== defaultTxtCtaAux ||
       txtCtaMain !== defaultTxtCtaMain ||
-      txtHeader !== defaultTxtHeader
+      txtHeader !== defaultTxtHeader ||
+      txtLockup !== defaultTxtLockup
     );
     setSampleContent(
       emphasis === sampleEmphasis &&
@@ -62,7 +65,7 @@ function App() {
       txtCtaMain === sampleTxtCtaMain &&
       txtHeader === sampleTxtHeader
     )
-  }, [bg, border, borderLeft, emphasis, coloredIcon, isDismissable, txtBody, txtCtaAux, txtCtaMain, txtHeader, defaultBg, defaultBorder, defaultBorderLeft, defaultColoredIcon, defaultEmphasis, defaultIsDismissable, defaultTxtBody, defaultTxtCtaAux, defaultTxtCtaMain, defaultTxtHeader, sampleEmphasis, sampleTxtBody, sampleTxtCtaAux, sampleTxtCtaMain, sampleTxtHeader]);
+  }, [bg, border, borderLeft, emphasis, coloredIcon, isDismissable, txtBody, txtCtaAux, txtCtaMain, txtHeader, txtLockup, defaultBg, defaultBorder, defaultBorderLeft, defaultColoredIcon, defaultEmphasis, defaultIsDismissable, defaultTxtBody, defaultTxtCtaAux, defaultTxtCtaMain, defaultTxtHeader, sampleEmphasis, sampleTxtBody, sampleTxtCtaAux, sampleTxtCtaMain, sampleTxtHeader]);
   
   function handleReset() {
     setBg(defaultBg);
@@ -75,6 +78,7 @@ function App() {
     setTxtCtaAux(defaultTxtCtaAux);
     setTxtCtaMain(defaultTxtCtaMain);
     setTxtHeader(defaultTxtHeader);
+    setTxtLockup(defaultTxtLockup);
     setChangesMade(false);
   }
 
@@ -119,8 +123,8 @@ function App() {
         <div className="section--main">
           <div className="subsection">
             <h2>Shared</h2>
-            <div className="wrapper">
-              <div>
+            <div className="wrapper shared">
+              <div className="subwrapper">
                 <div className="setup--block">
                   <p className="label">Emphasis</p>
                   <form>
@@ -237,68 +241,92 @@ function App() {
           </div>
           <div className="subsection">
             <h2>New Alert</h2>
-            <div className="setup--block">
-              <p className="label">Background</p>
-              <form>
-                {ALERT_NEW_BG.map(option => (
-                  <div>
-                    <input
-                      type="radio"
-                      name="bg"
-                      id={option}
-                      value={option}
-                      checked={option === bg}
-                      onChange={event => {
-                        setBg(event.target.value);
-                      }}
-                    />
-                    <label htmlFor={option}>
-                      {option}
-                    </label>
-                  </div>
-                ))}
-              </form>
-            </div>
-            <div className="setup--block">
-              <p className="label">Border</p>
-              <form>
-                <input
-                  type="checkbox"
-                  id="new-alert-border"
-                  checked={border}
-                  onChange={event => {
-                    setBorder(event.target.checked);
-                  }}
-                />
-                <label htmlFor="new-alert-border">All-around border</label>
-              </form>
-              <form>
-                <input
-                  type="checkbox"
-                  id="new-alert-border-left"
-                  checked={borderLeft}
-                  onChange={event => {
-                    setBorderLeft(event.target.checked);
-                  }}
-                />
-                <label htmlFor="new-alert-border-left">Thick left border</label>
-              </form>
-            </div>
-            <div className="setup--block">
-              <p className="label">Icon</p>
-              <form>
-                <input
-                  type="checkbox"
-                  id="new-alert-colored-icon"
-                  checked={coloredIcon}
-                  onChange={event => {
-                    setColoredIcon(event.target.checked)
-                  }}
-                />
-                <label htmlFor="new-alert-colored-icon">
-                  Colored icon
-                </label>
-              </form>
+            <div className="wrapper new">
+              <div className="setup--block">
+                <p className="label">Background</p>
+                <form>
+                  {ALERT_NEW_BG.map(option => (
+                    <div>
+                      <input
+                        type="radio"
+                        name="bg"
+                        id={option}
+                        value={option}
+                        checked={option === bg}
+                        onChange={event => {
+                          setBg(event.target.value);
+                        }}
+                      />
+                      <label htmlFor={option}>
+                        {option}
+                      </label>
+                    </div>
+                  ))}
+                </form>
+              </div>
+              <div className="setup--block">
+                <p className="label">Border</p>
+                <form>
+                  <input
+                    type="checkbox"
+                    id="new-alert-border"
+                    checked={border}
+                    onChange={event => {
+                      setBorder(event.target.checked);
+                    }}
+                  />
+                  <label htmlFor="new-alert-border">All-around border</label>
+                </form>
+                <form>
+                  <input
+                    type="checkbox"
+                    id="new-alert-border-left"
+                    checked={borderLeft}
+                    onChange={event => {
+                      setBorderLeft(event.target.checked);
+                    }}
+                  />
+                  <label htmlFor="new-alert-border-left">Thick left border</label>
+                </form>
+              </div>
+              <div className="setup--block">
+                <p className="label">Text Lockup</p>
+                <form>
+                  {ALERT_NEW_TEXT.map(option => (
+                    <div>
+                      <input
+                        type="radio"
+                        name="lockup"
+                        id={option}
+                        value={option}
+                        checked={option === txtLockup}
+                        onChange={event => {
+                          setTxtLockup(event.target.value);
+                        }}
+                      />
+                      <label htmlFor={option}>
+                        {option}
+                      </label>
+                    </div>
+                  ))}
+                </form>
+              </div>
+              <div className="setup--block">
+                <p className="label">Icon</p>
+                <form>
+                  <input
+                    type="checkbox"
+                    id="new-alert-colored-icon"
+                    checked={coloredIcon}
+                    onChange={event => {
+                      setColoredIcon(event.target.checked)
+                    }}
+                  />
+                  <label htmlFor="new-alert-colored-icon">
+                    Colored icon
+                  </label>
+                </form>
+              </div>
             </div>
           </div>
         </div>
@@ -338,12 +366,13 @@ function App() {
                   body={txtBody}
                   border={border}
                   borderLeft={borderLeft}
+                  coloredIcon={coloredIcon}
                   ctaAux={txtCtaAux}
                   ctaMain={txtCtaMain}
                   emphasis={emphasis}
                   header={txtHeader}
-                  coloredIcon={coloredIcon}
                   isDismissable={isDismissable}
+                  lockup={txtLockup}
                 />
             }
           </div>

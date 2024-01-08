@@ -11,9 +11,14 @@ export const ALERT_EMPHASES = [
 ]
 
 export const ALERT_NEW_BG = [
-    "none",
+    "current",
     "light",
-    "default"
+    "none",
+]
+
+export const ALERT_NEW_TEXT = [
+    "default",
+    "small"
 ]
 
 export const ALERT_ICONS = {
