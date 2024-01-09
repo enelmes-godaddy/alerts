@@ -10,6 +10,14 @@ export const ALERT_EMPHASES = [
     "internal"
 ]
 
+export const ALERT_WIDTH = [
+    279, // 375px viewport with 24px X padding + 24px padding inside a card
+    327, // 375px viewport with 24px X padding
+    654, // vaertical stack up until this point
+    655, // change to horizontal layout
+    1080
+]
+
 export const ALERT_NEW_BG = [
     "current",
     "light",

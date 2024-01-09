@@ -77,12 +77,9 @@ $icon-size: 24px;
 
 $font-smaller: 0.9rem;
 
-$transition: all 0.15s ease-in-out;
 
 .App {
   margin: $spacing-xl auto;
-  // max-width: 1800px;
-  min-width: 375px;
 }
 
 /*********************
@@ -99,8 +96,23 @@ $transition: all 0.15s ease-in-out;
     margin-bottom: $spacing-l;
   }
 
+  .section--header {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: $spacing-m;
+    justify-content: space-between;
+
+    .header-actions {
+      display: flex;
+      flex-direction: row;
+      flex-wrap:wrap;
+      gap: $spacing-s;
+    }
+  }
+
   .section--main {
-    display: grid;
     gap: $spacing-xl;
     margin-top: $spacing-m;
   }
@@ -130,63 +142,9 @@ $transition: all 0.15s ease-in-out;
  ********************/
 
 .section.setup {
-  .section--header {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: $spacing-m;
-
-    .header-actions {
-      display: flex;
-      flex-direction: row;
-      flex-wrap:wrap;
-      gap: $spacing-s;
-    }
-  }
-
   .section--main {
+    display: grid;
     grid-template-columns: 2fr 1fr;
-  }
-
-  .setup--block {
-    display: flex;
-    flex-direction: column;
-
-    &:not(:last-of-type) {
-      margin-bottom: $spacing-l;
-    }
-
-    form,
-    form div {
-      &:not(:last-of-type) {
-        margin-bottom: $spacing-s;
-      }
-    }
-
-    input,
-    textarea {
-      border: $border-setup;
-      border-radius: $border-radius-form;
-      padding: $spacing-s;
-      width: 100%;
-    }
-
-    input[type="radio"],
-    input[type="checkbox"] {
-      margin-right: $spacing-s;
-      width: auto !important;
-    }
-
-    .label-wrapper {
-      align-items: center;
-      display: flex;
-      gap: $spacing-s;
-      margin-bottom: $spacing-s;
-
-      label {
-        margin-bottom: 0;
-      }
-    }
   }
 
   .cta-block {
@@ -200,13 +158,70 @@ $transition: all 0.15s ease-in-out;
   }
 }
 
+.setup--block {
+  display: flex;
+  flex-direction: column;
+
+  &.horizontal form {
+    display: flex;
+    flex-direction: row;
+    gap: $spacing-l;
+
+    div {
+      margin-bottom: 0 !important;
+    }
+  }
+
+  &:not(:last-of-type) {
+    margin-bottom: $spacing-l;
+  }
+
+  form,
+  form div {
+    &:not(:last-of-type) {
+      margin-bottom: $spacing-s;
+    }
+  }
+
+  input,
+  textarea {
+    border: $border-setup;
+    border-radius: $border-radius-form;
+    padding: $spacing-s;
+    width: 100%;
+  }
+
+  input[type="radio"],
+  input[type="checkbox"] {
+    margin-right: $spacing-s;
+    width: auto !important;
+  }
+
+  .label-wrapper {
+    align-items: center;
+    display: flex;
+    gap: $spacing-s;
+    margin-bottom: $spacing-s;
+
+    label {
+      margin-bottom: 0;
+    }
+  }
+}
+
 /*********************
  *** EXAMPLES ********
  ********************/
 
 .section.examples {
    .section--main {
-    grid-template-columns: repeat(2, 1fr);
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .example > div {
+    transition: 1s all ease-in-out;
   }
 }
 
@@ -217,13 +232,14 @@ $transition: all 0.15s ease-in-out;
 .Alert-New {
   border: 1px solid transparent;
   border-radius: $alert-border-radius;
-  container-name: Alert-New;
+  container-name: alert-outer;
   container-type: inline-size;
   display: flex;
   flex-direction: row;
   gap: $spacing-m;
   overflow: hidden;
   position: relative;
+  resize: horizontal;
 
   @each $color, $value in $colors {
     &.#{$color} {
@@ -364,13 +380,14 @@ $transition: all 0.15s ease-in-out;
  *** CONTAINER QUERIES ***
  ************************/
 
-@container Alert-New (max-width: 692px) { // 2px offset
+@container alert-outer (max-width: 645px) { // 10px offset for border (9px) and max-width (1px)
   .Alert-New {
     .Alert--content {
       align-items: start;
       flex-direction: column;
+      gap: $spacing-m;
     }
-
+  
     .Alert--actions {
       padding-left: $spacing-m + $spacing-l;
     }
@@ -380,13 +397,6 @@ $transition: all 0.15s ease-in-out;
 /*********************
  *** MEDIA QUERIES ***
  ********************/
-
-@media (max-width: 1200px) {
-  .section.examples .section--main {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto;
-  }
-}
 
 @media (max-width: 1100px) {
   .section.setup .subsection .wrapper {
@@ -406,6 +416,7 @@ $transition: all 0.15s ease-in-out;
 @media (max-width: 950px) {
   .App {
     margin: $spacing-l auto;
+    min-width: fit-content;
   }
 
   .section {
@@ -413,7 +424,6 @@ $transition: all 0.15s ease-in-out;
     padding: $spacing-l;
   }
 
-  .section .section--main,
   .section.setup .section--main {
     gap: $spacing-l;
     grid-template-columns: 1fr;
@@ -478,6 +488,10 @@ label {
   font-size: $font-smaller;
   font-weight: bold;
   margin-bottom: $spacing-s;
+ }
+
+ .lowercase {
+  text-transform: lowercase;
  }
 
 .mt-s {
