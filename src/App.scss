@@ -67,8 +67,8 @@ $button-padding: $spacing-xs $spacing-s;
 $alert-border-radius: 8px;
 $alert-gap: $spacing-m;
 $alert-padding-right: $spacing-xl + $spacing-m; // 56px
-$alert-inner-padding: $spacing-l $alert-padding-right $spacing-l 0;
-$alert-thick-border: 12px;
+$alert-inner-padding: $spacing-l $alert-padding-right $spacing-l $spacing-m;
+$alert-thick-border: 7px; // recommend 8px (Figma says 12px), 1px offset
 
 $dismiss-button-border-radius: 6px; // from Figma minimal icon button
 $dismiss-button-size: 20px;
@@ -77,12 +77,9 @@ $icon-size: 24px;
 
 $font-smaller: 0.9rem;
 
-$transition: all 0.15s ease-in-out;
 
 .App {
   margin: $spacing-xl auto;
-  // max-width: 1800px;
-  min-width: 375px;
 }
 
 /*********************
@@ -99,8 +96,23 @@ $transition: all 0.15s ease-in-out;
     margin-bottom: $spacing-l;
   }
 
+  .section--header {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: $spacing-m;
+    justify-content: space-between;
+
+    .header-actions {
+      display: flex;
+      flex-direction: row;
+      flex-wrap:wrap;
+      gap: $spacing-s;
+    }
+  }
+
   .section--main {
-    display: grid;
     gap: $spacing-xl;
     margin-top: $spacing-m;
   }
@@ -112,8 +124,15 @@ $transition: all 0.15s ease-in-out;
 
     .wrapper {
       display: grid;
-      gap: $spacing-xl;
-      grid-template-columns: 1fr 2fr;
+
+      &.shared {
+        gap: $spacing-xl;
+        grid-template-columns: 1fr 2fr;
+      }
+      
+      &.new {
+        grid-template-columns: 1fr;
+      }
     }
   }
 }
@@ -123,61 +142,9 @@ $transition: all 0.15s ease-in-out;
  ********************/
 
 .section.setup {
-  .section--header {
-    display: flex;
-    flex-direction: row;
-    gap: $spacing-m;
-
-    .header-actions {
-      display: flex;
-      flex-direction: row;
-      gap: $spacing-s;
-    }
-  }
-
   .section--main {
+    display: grid;
     grid-template-columns: 2fr 1fr;
-  }
-
-  .setup--block {
-    display: flex;
-    flex-direction: column;
-
-    &:not(:last-of-type) {
-      margin-bottom: $spacing-l;
-    }
-
-    form,
-    form div {
-      &:not(:last-of-type) {
-        margin-bottom: $spacing-s;
-      }
-    }
-
-    input,
-    textarea {
-      border: $border-setup;
-      border-radius: $border-radius-form;
-      padding: $spacing-s;
-      width: 100%;
-    }
-
-    input[type="radio"],
-    input[type="checkbox"] {
-      margin-right: $spacing-s;
-      width: auto !important;
-    }
-
-    .label-wrapper {
-      align-items: center;
-      display: flex;
-      gap: $spacing-s;
-      margin-bottom: $spacing-s;
-
-      label {
-        margin-bottom: 0;
-      }
-    }
   }
 
   .cta-block {
@@ -191,13 +158,70 @@ $transition: all 0.15s ease-in-out;
   }
 }
 
+.setup--block {
+  display: flex;
+  flex-direction: column;
+
+  &.horizontal form {
+    display: flex;
+    flex-direction: row;
+    gap: $spacing-l;
+
+    div {
+      margin-bottom: 0 !important;
+    }
+  }
+
+  &:not(:last-of-type) {
+    margin-bottom: $spacing-l;
+  }
+
+  form,
+  form div {
+    &:not(:last-of-type) {
+      margin-bottom: $spacing-s;
+    }
+  }
+
+  input,
+  textarea {
+    border: $border-setup;
+    border-radius: $border-radius-form;
+    padding: $spacing-s;
+    width: 100%;
+  }
+
+  input[type="radio"],
+  input[type="checkbox"] {
+    margin-right: $spacing-s;
+    width: auto !important;
+  }
+
+  .label-wrapper {
+    align-items: center;
+    display: flex;
+    gap: $spacing-s;
+    margin-bottom: $spacing-s;
+
+    label {
+      margin-bottom: 0;
+    }
+  }
+}
+
 /*********************
  *** EXAMPLES ********
  ********************/
 
 .section.examples {
    .section--main {
-    grid-template-columns: repeat(2, 1fr);
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .example > div {
+    transition: 1s all ease-in-out;
   }
 }
 
@@ -205,23 +229,17 @@ $transition: all 0.15s ease-in-out;
  *** NEW ALERT *******
  ********************/
 
-.Alert--New {
+.Alert-New {
   border: 1px solid transparent;
   border-radius: $alert-border-radius;
+  container-name: alert-outer;
+  container-type: inline-size;
   display: flex;
   flex-direction: row;
   gap: $spacing-m;
   overflow: hidden;
-  padding-left: $spacing-l;
   position: relative;
-  
-  .inner {
-    display: flex;
-    flex-direction: row;
-    gap: $spacing-m;
-    width: 100%;
-    padding: $alert-inner-padding;
-  }
+  resize: horizontal;
 
   @each $color, $value in $colors {
     &.#{$color} {
@@ -234,22 +252,95 @@ $transition: all 0.15s ease-in-out;
   }
 
   @each $color, $value in $colors--high-contrast {
-    &.border.#{$color} {
-      border: 1px solid $value;
-    }
+    &.#{$color} {
+      
+      // simple border matching border-radius value
+      &.border {
+        border: 1px solid $value;
+      }
 
-    &.#{$color} .thick-border {
-      background-color: $value;
-      width: $alert-thick-border;
-    }
-  }
+      &.border-left {
+        border-left: 8px solid $value;
+        // border-left-width: 8px;
+      }
 
-  &.border-left {
-    padding-left: 0;
+      // borders thicker than border-radius
+      // &.border {
+      //   border: 1px solid $value;
+      // }
+      // 
+      // &.border-left::before {
+      //   content: "";
+      //   background-color: $value;
+      //   position: absolute;
+      //   top: -1px;
+      //   bottom: -1px;
+      //   left: 0;
+      //   width: $alert-thick-border;
+      // }
+    }
   }
 
   &.bg-none {
     background-color: $bg--base !important;
+  }
+
+  .txt {
+    &-default {
+      .Alert--header h3 {
+        font-size: 20px;
+        line-height: 120%;
+      }
+
+      .Alert--body p {
+        font-size: 16px;
+        line-height: 150%;
+        margin-bottom: 0;
+      }
+    }
+
+    &-small {
+      .Alert--header h3 {
+        font-size: 18px;
+        line-height: 120%;
+      }
+
+      .Alert--body p {
+        font-size: 15px;
+        line-height: 150%;
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .Alert--content {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    gap: $spacing-l;
+    justify-content: space-between;
+    padding: $alert-inner-padding;
+    width: 100%;
+  }
+
+  .Alert--icon-and-text-wrapper {
+    display: flex;
+    flex-direction: row;
+    gap: $spacing-m;
+
+    .text-lockup {
+      flex-grow: 1;
+    }
+  }
+
+  .Alert--actions {
+    align-items: center;
+    display: flex;
+    gap: $spacing-s;
+    flex-direction: row;
+    flex-grow: 0;
+    flex-wrap: wrap;
+    min-width: fit-content;
   }
 
   .Alert--icon {
@@ -264,39 +355,6 @@ $transition: all 0.15s ease-in-out;
       }
     }
   }
-
-  .Alert--header h3 {
-    font-size: 17.38px; // exact size from Figma component
-    line-height: 125%;
-  }
-
-  .Alert--body p {
-    line-height: 150%;
-    margin-bottom: 0;
-  }
-
-  .Alert--content {
-    display: flex;
-    gap: $spacing-l;
-    flex-direction: row;
-    flex: 100%;
-    flex-wrap: wrap;
-
-    .text-lockup {
-      flex-grow: 1;
-    }
-
-    .action-toolbar {
-      align-items: center;
-      display: flex;
-      gap: $spacing-s;
-      flex-grow: 0;
-      flex-direction: row;
-      flex-wrap: wrap;
-      min-width: fit-content;
-    }
-  }
-
   
   .button-dismiss {
     align-items: center;
@@ -318,27 +376,47 @@ $transition: all 0.15s ease-in-out;
   }
 }
 
+/*************************
+ *** CONTAINER QUERIES ***
+ ************************/
+
+@container alert-outer (max-width: 645px) { // 10px offset for border (9px) and max-width (1px)
+  .Alert-New {
+    .Alert--content {
+      align-items: start;
+      flex-direction: column;
+      gap: $spacing-m;
+    }
+  
+    .Alert--actions {
+      padding-left: $spacing-m + $spacing-l;
+    }
+  }
+}
+
 /*********************
  *** MEDIA QUERIES ***
  ********************/
 
-@media (max-width: 1200px) {
-  .section.examples .section--main {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto;
-  }
-}
-
 @media (max-width: 1100px) {
-  .section.setup .section--main {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto;
+  .section.setup .subsection .wrapper {
+    &.shared {
+      gap: $spacing-l;
+      grid-template-columns: 1fr;
+      grid-template-rows: auto;
+
+      .subwrapper {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+      }
+    }
   }
 }
 
 @media (max-width: 950px) {
   .App {
     margin: $spacing-l auto;
+    min-width: fit-content;
   }
 
   .section {
@@ -346,19 +424,45 @@ $transition: all 0.15s ease-in-out;
     padding: $spacing-l;
   }
 
-  .section .section--main,
   .section.setup .section--main {
     gap: $spacing-l;
     grid-template-columns: 1fr;
     grid-template-rows: auto;
   }
+
+  .section.setup .subsection .wrapper.new {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 @media (max-width: 750px) {
   .section.setup .subsection .wrapper {
-    gap: $spacing-l;
     grid-template-columns: 1fr;
     grid-template-rows: auto;
+  }
+}
+
+@media (max-width: 550px) {
+  .section.setup .cta-block {
+    flex-direction: column;
+
+    form {
+      width: 100%;
+    }
+  }
+}
+
+@media (max-width: 450px) {
+  .section.setup .subsection .wrapper {
+    &.shared {
+      .subwrapper {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    &.new {
+      grid-template-columns: 1fr;
+    }
   }
 }
 
@@ -384,6 +488,10 @@ label {
   font-size: $font-smaller;
   font-weight: bold;
   margin-bottom: $spacing-s;
+ }
+
+ .lowercase {
+  text-transform: lowercase;
  }
 
 .mt-s {
