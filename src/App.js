@@ -119,7 +119,7 @@ function App() {
         </div>
         <div className="section--main">
           <div className="subsection">
-            <h2>Shared Settings</h2>
+            <h2>Shared</h2>
             <div className="wrapper shared">
               <div className="subwrapper">
                 <div className="setup--block">
@@ -221,7 +221,7 @@ function App() {
             </div>
           </div>
           <div className="subsection">
-            <h2>New Alert Settings</h2>
+            <h2>New Alert</h2>
             <div className="wrapper new">
               <div className="setup--block">
                 <p className="label">Background</p>
