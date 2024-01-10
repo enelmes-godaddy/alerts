@@ -80,6 +80,9 @@ $font-smaller: 0.9rem;
 
 .App {
   margin: $spacing-xl auto;
+  max-width: 2362px;
+  min-width: fit-content;
+  overflow: scroll;
 }
 
 /*********************
@@ -220,8 +223,27 @@ $font-smaller: 0.9rem;
     flex-wrap: wrap;
   }
 
-  .example > div {
-    transition: 1s all ease-in-out;
+  .example {
+
+    div {
+      transition: 1s all ease-in-out;
+    }
+
+    .border, .border-left {
+      transition: 0.3s all ease-in-out;
+    }
+
+    h3, p {
+      transition: 0.3s all ease-in-out;
+    }
+
+    .Alert--icon svg path {
+      transition: 0.3s all ease-in-out;
+    }
+
+    .Alert--actions {
+      transition: none;
+    }
   }
 }
 
@@ -398,73 +420,73 @@ $font-smaller: 0.9rem;
  *** MEDIA QUERIES ***
  ********************/
 
-@media (max-width: 1100px) {
-  .section.setup .subsection .wrapper {
-    &.shared {
-      gap: $spacing-l;
-      grid-template-columns: 1fr;
-      grid-template-rows: auto;
+// @media (max-width: 1100px) {
+//   .section.setup .subsection .wrapper {
+//     &.shared {
+//       gap: $spacing-l;
+//       grid-template-columns: 1fr;
+//       grid-template-rows: auto;
 
-      .subwrapper {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-      }
-    }
-  }
-}
+//       .subwrapper {
+//         display: grid;
+//         grid-template-columns: 1fr 1fr;
+//       }
+//     }
+//   }
+// }
 
-@media (max-width: 950px) {
-  .App {
-    margin: $spacing-l auto;
-    min-width: fit-content;
-  }
+// @media (max-width: 950px) {
+//   .App {
+//     margin: $spacing-l auto;
+//     min-width: fit-content;
+//   }
 
-  .section {
-    margin: 0 $spacing-l;
-    padding: $spacing-l;
-  }
+//   .section {
+//     margin: 0 $spacing-l;
+//     padding: $spacing-l;
+//   }
 
-  .section.setup .section--main {
-    gap: $spacing-l;
-    grid-template-columns: 1fr;
-    grid-template-rows: auto;
-  }
+//   .section.setup .section--main {
+//     gap: $spacing-l;
+//     grid-template-columns: 1fr;
+//     grid-template-rows: auto;
+//   }
 
-  .section.setup .subsection .wrapper.new {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
+//   .section.setup .subsection .wrapper.new {
+//     grid-template-columns: repeat(2, 1fr);
+//   }
+// }
 
-@media (max-width: 750px) {
-  .section.setup .subsection .wrapper {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto;
-  }
-}
+// @media (max-width: 750px) {
+//   .section.setup .subsection .wrapper {
+//     grid-template-columns: 1fr;
+//     grid-template-rows: auto;
+//   }
+// }
 
-@media (max-width: 550px) {
-  .section.setup .cta-block {
-    flex-direction: column;
+// @media (max-width: 550px) {
+//   .section.setup .cta-block {
+//     flex-direction: column;
 
-    form {
-      width: 100%;
-    }
-  }
-}
+//     form {
+//       width: 100%;
+//     }
+//   }
+// }
 
-@media (max-width: 450px) {
-  .section.setup .subsection .wrapper {
-    &.shared {
-      .subwrapper {
-        grid-template-columns: 1fr;
-      }
-    }
+// @media (max-width: 450px) {
+//   .section.setup .subsection .wrapper {
+//     &.shared {
+//       .subwrapper {
+//         grid-template-columns: 1fr;
+//       }
+//     }
 
-    &.new {
-      grid-template-columns: 1fr;
-    }
-  }
-}
+//     &.new {
+//       grid-template-columns: 1fr;
+//     }
+//   }
+// }
 
 /*********************
  *** GENERIC ETC. ****

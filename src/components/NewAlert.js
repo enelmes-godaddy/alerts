@@ -6,7 +6,7 @@ import '@ux/button/styles';
 
 function NewAlert(props) {
 
-    const { size, bg, body, border, borderLeft, coloredIcon, ctaAux, ctaMain, emphasis, header, isDismissable, lockup } = props;
+    const { size, bg, body, border, borderLeft, coloredIcon, cta, emphasis, header, isDismissable, lockup } = props;
 
     return (
         <div style={{ width: `${size}px` }} className={classNames("Alert-New", "bg-" + bg, emphasis, { border: border, "border-left": borderLeft })}>
@@ -24,9 +24,8 @@ function NewAlert(props) {
                         </div>}
                     </div>
                 </div>
-                {(ctaMain || ctaAux) && <div className="Alert--actions">
-                    {ctaMain && <Button design="secondary" size="small" text={ctaMain} />}
-                    {ctaAux && <Button design="tertiary" size="small" text={ctaAux} />}
+                {cta && <div className="Alert--actions">
+                    <Button design="secondary" size="small" text={cta} />
                 </div>}
             </div>
             {isDismissable && <button className="button-dismiss">{DISMISS}</button>}

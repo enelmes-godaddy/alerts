@@ -20,14 +20,12 @@ function App() {
   const defaultIsDismissable = true;
   const defaultTxtBody = "Body";
   const defaultTxtHeader = "Header";
-  const defaultTxtCtaAux = "Auxiliary Action";
-  const defaultTxtCtaMain = "Main Action";
+  const defaultTxtCta = "Action";
   const defaultTxtLockup = "small";
 
   const sampleEmphasis = "critical";
   const sampleTxtBody = "You will be logged out in 12 hours for security purposes. Log in again to re-authenticate for 7 days.";
-  const sampleTxtCtaAux = "Remind Me Later";
-  const sampleTxtCtaMain = "Re-Authenticate Now"
+  const sampleTxtCta = "Re-Authenticate Now";
   const sampleTxtHeader = "Re-authentication needed";
   
   const [alertWidth, setAlertWidth] = useState(defaultAlertWidth);
@@ -38,8 +36,7 @@ function App() {
   const [coloredIcon, setColoredIcon] = useState(defaultColoredIcon);
   const [isDismissable, setIsDismissable] = useState(defaultIsDismissable);
   const [txtBody, setTxtBody] = useState(defaultTxtBody);
-  const [txtCtaAux, setTxtCtaAux] = useState(defaultTxtCtaAux);
-  const [txtCtaMain, setTxtCtaMain] = useState(defaultTxtCtaMain);
+  const [txtCta, setTxtCta] = useState(defaultTxtCta);
   const [txtHeader, setTxtHeader] = useState(defaultTxtHeader);
   const [txtLockup, setTxtLockup] = useState(defaultTxtLockup);
   const [changesMade, setChangesMade] = useState(false);
@@ -56,19 +53,17 @@ function App() {
       emphasis !== defaultEmphasis ||
       isDismissable !== defaultIsDismissable ||
       txtBody !== defaultTxtBody ||
-      txtCtaAux !== defaultTxtCtaAux ||
-      txtCtaMain !== defaultTxtCtaMain ||
+      txtCta !== defaultTxtCta ||
       txtHeader !== defaultTxtHeader ||
       txtLockup !== defaultTxtLockup
     );
     setSampleContent(
       emphasis === sampleEmphasis &&
       txtBody === sampleTxtBody &&
-      txtCtaAux === sampleTxtCtaAux &&
-      txtCtaMain === sampleTxtCtaMain &&
+      txtCta === sampleTxtCta &&
       txtHeader === sampleTxtHeader
     )
-  }, [alertWidth, bg, border, borderLeft, emphasis, coloredIcon, isDismissable, txtBody, txtCtaAux, txtCtaMain, txtHeader, txtLockup, defaultBg, defaultBorder, defaultBorderLeft, defaultColoredIcon, defaultEmphasis, defaultIsDismissable, defaultTxtBody, defaultTxtCtaAux, defaultTxtCtaMain, defaultTxtHeader, sampleEmphasis, sampleTxtBody, sampleTxtCtaAux, sampleTxtCtaMain, sampleTxtHeader]);
+  }, [alertWidth, bg, border, borderLeft, emphasis, coloredIcon, isDismissable, txtBody, txtCta, txtHeader, txtLockup, defaultBg, defaultBorder, defaultBorderLeft, defaultColoredIcon, defaultEmphasis, defaultIsDismissable, defaultTxtBody, defaultTxtCta, defaultTxtHeader, sampleEmphasis, sampleTxtBody, sampleTxtCta, sampleTxtHeader]);
   
   function handleReset() {
     setAlertWidth(defaultAlertWidth);
@@ -79,8 +74,7 @@ function App() {
     setColoredIcon(defaultColoredIcon);
     setIsDismissable(defaultIsDismissable);
     setTxtBody(defaultTxtBody);
-    setTxtCtaAux(defaultTxtCtaAux);
-    setTxtCtaMain(defaultTxtCtaMain);
+    setTxtCta(defaultTxtCta);
     setTxtHeader(defaultTxtHeader);
     setTxtLockup(defaultTxtLockup);
     setChangesMade(false);
@@ -89,16 +83,14 @@ function App() {
   function handleSampleContent() {
     setEmphasis(sampleEmphasis);
     setTxtBody(sampleTxtBody);
-    setTxtCtaAux(sampleTxtCtaAux);
-    setTxtCtaMain(sampleTxtCtaMain);
+    setTxtCta(sampleTxtCta);
     setTxtHeader(sampleTxtHeader);
     setSampleContent(true);
   }
 
   const currentAlertActions = (
     <>
-      {txtCtaMain && <Button design="inline" text={txtCtaMain} />}
-      {txtCtaAux && <Button design="inline" text={txtCtaAux} />}
+      {txtCta && <Button design="inline" text={txtCta} />}
     </>
   );
 
@@ -107,7 +99,7 @@ function App() {
     <div className="App">
       <div className="section setup">
         <div className="section--header">
-          <h1>Setup</h1>
+          <h1>Settings</h1>
           <div className="header-actions">            
             <Button
               design="secondary"
@@ -211,33 +203,17 @@ function App() {
                   <form>
                     <div className="label-wrapper">
                       <label className="label" htmlFor="main-action-label">
-                        Main Action
+                        CTA Label
                       </label>
-                      <Button size="small" design="inline" text="Clear" onClick={() => setTxtCtaMain("")} disabled={!txtCtaMain} />
+                      <Button size="small" design="inline" text="Clear" onClick={() => setTxtCta("")} disabled={!txtCta} />
                     </div>
                     <input
-                      value={txtCtaMain}
+                      value={txtCta}
                       id="main-action-label"
                       onChange={e => {
-                        setTxtCtaMain(e.target.value)
+                        setTxtCta(e.target.value)
                       }}
-                      placeholder={defaultTxtCtaMain}
-                    />
-                  </form>
-                  <form>
-                    <div className="label-wrapper">
-                      <label className="label" htmlFor="auxiliary-action-label">
-                        Auxiliary Action
-                      </label>
-                      <Button size="small" design="inline" text="Clear" onClick={() => setTxtCtaAux("")} disabled={!txtCtaAux} />
-                    </div>
-                    <input
-                      value={txtCtaAux}
-                      id="auxiliary-action-label"
-                      onChange={e => {
-                        setTxtCtaAux(e.target.value)
-                      }}
-                      placeholder="Auxiliary Action"
+                      placeholder={defaultTxtCta}
                     />
                   </form>
                 </div>
@@ -342,20 +318,6 @@ function App() {
           <h1>Examples</h1>
           <div className="setup--block horizontal">
             <form>
-                {/* <div key="responsive">
-                  <input
-                    type="radio"
-                    name="alert-width"
-                    id="responsive"
-                    value="responsive"
-                    onChange={() => {
-                      setResponsiveWidth(true);
-                    }}
-                  />
-                  <label htmlFor="responsive">
-                    Responsive
-                  </label>
-                </div> */}
               {ALERT_WIDTH.map(option => (
                 <div key={option}>
                   <input
@@ -413,8 +375,7 @@ function App() {
                     border={border}
                     borderLeft={borderLeft}
                     coloredIcon={coloredIcon}
-                    ctaAux={txtCtaAux}
-                    ctaMain={txtCtaMain}
+                    cta={txtCta}
                     emphasis={emphasis}
                     header={txtHeader}
                     isDismissable={isDismissable}
