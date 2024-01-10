@@ -222,24 +222,21 @@ $font-smaller: 0.9rem;
     flex-direction: row;
     flex-wrap: wrap;
   }
+}
 
-  .example {
-    div {
-      transition: 1s all ease-in-out;
-    }
+div.Alert-Current,
+div.Alert-New {
+  transition: background-color 0.3s ease-in-out, border 0.3s ease-in-out, width 0.8s ease-in-out;
+}
 
-    h3,
-    p,
-    svg path,
-    .border,
-    .border-left {
-      transition: 0.3s all ease-in-out;
-    }
+h3,
+p,
+svg path {
+  transition: 0.3s ease-in-out;
+}
 
-    .Alert--actions {
-      transition: none;
-    }
-  }
+.Alert--actions {
+  transition: none;
 }
 
 /*********************
@@ -256,7 +253,6 @@ $font-smaller: 0.9rem;
   gap: $spacing-m;
   overflow: hidden;
   position: relative;
-  resize: horizontal;
 
   @each $color, $value in $colors {
     &.#{$color} {

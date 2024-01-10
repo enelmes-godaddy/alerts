@@ -344,7 +344,7 @@ function App() {
             {emphasis === "passive" || emphasis === "premium"
               ? <p className="text-passive">Variant exists in Figma but isn't supported in UXCore.</p>
               : isDismissable
-                ? <div style={{ width: `${alertWidth}px` }}>
+                ? <div style={{ width: `${alertWidth}px` }} className="Alert-Current">
                     <Alert
                       title={txtHeader}
                       emphasis={emphasis}
