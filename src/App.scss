@@ -96,7 +96,7 @@ $font-smaller: 0.9rem;
 
   .examples {
     background-color: $ux-box-backgroundColor;
-    width: 100%;
+    overflow-x: hidden;
   }
 
   .mb-s {
