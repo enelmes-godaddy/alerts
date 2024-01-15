@@ -11,7 +11,7 @@ import "./App.scss";
 
 
 function App() {
-  const defaultAlertWidth = 654;
+  const defaultAlertWidth = 620;
   const defaultBg = "none";
   const defaultBorder = true;
   const defaultBorderLeft = true;
