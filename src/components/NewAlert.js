@@ -13,9 +13,9 @@ function NewAlert(props) {
             <div className={classNames("Alert--content", "txt-"+lockup)}>
                 <div className="Alert--icon-and-text-wrapper">
                     <div className={classNames("Alert--icon", coloredIcon && emphasis)}>
-                        {ALERT_ICONS[emphasis]}
-                    </div>
-                    <div className="text-lockup">
+                            {ALERT_ICONS[emphasis]}
+                        </div>
+                    <div className="Alert--text-lockup">
                         {header && <div className="Alert--header">
                             <h3 className={classNames({ "mb-s": body })}>{header}</h3>
                         </div>}
@@ -25,8 +25,8 @@ function NewAlert(props) {
                     </div>
                 </div>
                 {cta && <div className="Alert--actions">
-                    <Button design="secondary" size="small" text={cta} />
-                </div>}
+                        <Button design="secondary" size="small" text={cta} />
+                    </div>}
             </div>
             {isDismissable && <button className="button-dismiss">{DISMISS}</button>}
         </div >

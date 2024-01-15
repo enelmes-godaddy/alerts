@@ -64,7 +64,7 @@ $button-border-disabled: 1px solid rgba($color, 0.5);
 $button-border-radius: 6px;
 $button-padding: $spacing-xs $spacing-s;
 
-$alert-border-radius: 8px;
+$alert-border-radius: 6px;
 $alert-gap: $spacing-m;
 $alert-padding-right: $spacing-xl + $spacing-m; // 56px
 $alert-inner-padding: $spacing-l $alert-padding-right $spacing-l $spacing-m;
@@ -246,12 +246,8 @@ svg path {
 .Alert-New {
   border: 1px solid transparent;
   border-radius: $alert-border-radius;
-  container-name: alert-outer;
-  container-type: inline-size;
   display: flex;
-  flex-direction: row;
   gap: $spacing-m;
-  overflow: hidden;
   position: relative;
 
   @each $color, $value in $colors {
@@ -330,16 +326,32 @@ svg path {
     align-items: center;
     display: flex;
     flex-direction: row;
-    gap: $spacing-l;
-    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: $spacing-m;
     padding: $alert-inner-padding;
     width: 100%;
   }
 
   .Alert--icon-and-text-wrapper {
     display: flex;
+    flex-basis: 70%;
     flex-direction: row;
+    flex-grow: 1;
+    flex-shrink: 1;
     gap: $spacing-m;
+  }
+
+  .Alert--text-lockup {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .Alert--actions {
+    display: flex;
+    flex: 2 auto;
+    flex-grow: 0;
+    max-width: fit-content;
+    padding-left: $spacing-xl;
   }
 
   .Alert--icon {
@@ -371,28 +383,6 @@ svg path {
 
     &:hover {
       background-color: transparentize($color, 0.9);
-    }
-  }
-}
-
-/*************************
- *** CONTAINER QUERIES ***
- ************************/
-
-@container alert-outer (max-width: 645px) { // 10px offset for border (9px) and max-width (1px)
-  .Alert-New {
-    .Alert--content {
-      align-items: start;
-      flex-direction: column;
-      gap: $spacing-m;
-    }
-  
-    .Alert--actions {
-      padding-left: $spacing-m + $spacing-l; // 40px
-
-      .ux-button-text {
-        text-wrap: wrap; // wrap button label text
-      }
     }
   }
 }
