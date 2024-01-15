@@ -6,16 +6,19 @@ import '@ux/button/styles';
 
 function NewAlert(props) {
 
-    const { size, bg, body, border, borderLeft, coloredIcon, cta, emphasis, header, isDismissable, lockup } = props;
+    const { alertWidth, body, cta, ctaWrap, emphasis, header, isDismissable } = props;
 
     return (
-        <div style={{ width: `${size}px` }} className={classNames("Alert-New", "bg-" + bg, emphasis, { border: border, "border-left": borderLeft })}>
-            <div className={classNames("Alert--content", "txt-"+lockup)}>
+        <div
+            style={{ width: alertWidth }}
+            className={classNames("NewAlert", emphasis)}
+        >
+            <div className="Alert--content">
                 <div className="Alert--icon-and-text-wrapper">
-                    <div className={classNames("Alert--icon", coloredIcon && emphasis)}>
+                    <div className="Alert--icon">
                         {ALERT_ICONS[emphasis]}
                     </div>
-                    <div className="text-lockup">
+                    <div className="Alert--text-lockup">
                         {header && <div className="Alert--header">
                             <h3 className={classNames({ "mb-s": body })}>{header}</h3>
                         </div>}
@@ -24,11 +27,11 @@ function NewAlert(props) {
                         </div>}
                     </div>
                 </div>
-                {cta && <div className="Alert--actions">
+                {cta && <div className={classNames("Alert--action", { "wrap-cta-label": ctaWrap })}>
                     <Button design="secondary" size="small" text={cta} />
                 </div>}
             </div>
-            {isDismissable && <button className="button-dismiss">{DISMISS}</button>}
+            {isDismissable && <button className="Alert--dismiss">{DISMISS}</button>}
         </div >
     );
 }
