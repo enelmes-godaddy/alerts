@@ -6,11 +6,14 @@ import '@ux/button/styles';
 
 function NewAlert(props) {
 
-    const { alertWidth, body, cta, ctaWrap, emphasis, header, isDismissable } = props;
+    const { alertWidth, alertWidthAuto, body, cta, ctaWrap, emphasis, header, isDismissable } = props;
+
+    const alertWidthValue = alertWidthAuto ? "auto" : alertWidth + "px";
 
     return (
         <div
-            style={{ width: alertWidth }}
+            // style={{ width: alertWidth + "px" }}
+            style={{ width: alertWidthValue }}
             className={classNames("NewAlert", emphasis)}
         >
             <div className="Alert--content">

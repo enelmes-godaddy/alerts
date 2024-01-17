@@ -7,7 +7,8 @@ import "./App.scss";
 
 
 function App() {
-  const defaultAlertWidth = "auto";
+  const defaultAlertWidth = "";
+  const defaultAlertWidthAuto = true;
   const defaultCtaWrap = false;
   const defaultIsDismissable = true;
   const defaultShowCta = true;
@@ -17,6 +18,7 @@ function App() {
   const defaultTxtCta = "Re-Authenticate Now";
 
   const [alertWidth, setAlertWidth] = useState(defaultAlertWidth);
+  const [alertWidthAuto, setAlertWidthAuto] = useState(defaultAlertWidthAuto);
   const [ctaWrap, setCtaWrap] = useState(defaultCtaWrap);
   const [isDismissable, setIsDismissable] = useState(defaultIsDismissable);
   const [showCta, setShowCta] = useState(true);
@@ -29,6 +31,7 @@ function App() {
   useEffect(() => {
     setChangesMade(
       alertWidth !== defaultAlertWidth ||
+      alertWidthAuto !== defaultAlertWidthAuto ||
       ctaWrap !== defaultCtaWrap ||
       isDismissable !== defaultIsDismissable ||
       showCta !== defaultShowCta ||
@@ -37,10 +40,11 @@ function App() {
       txtCta !== defaultTxtCta ||
       txtHeader !== defaultTxtHeader
     );
-  }, [alertWidth, ctaWrap, isDismissable, showCta, showHeader, txtBody, txtCta, txtHeader, defaultCtaWrap, defaultIsDismissable, defaultShowCta, defaultShowHeader, defaultTxtBody, defaultTxtCta, defaultTxtHeader]);
+  }, [alertWidth, alertWidthAuto, ctaWrap, isDismissable, showCta, showHeader, txtBody, txtCta, txtHeader, defaultAlertWidth, defaultAlertWidthAuto, defaultCtaWrap, defaultIsDismissable, defaultShowCta, defaultShowHeader, defaultTxtBody, defaultTxtCta, defaultTxtHeader]);
   
   function handleReset() {
     setAlertWidth(defaultAlertWidth);
+    setAlertWidthAuto(defaultAlertWidthAuto);
     setCtaWrap(defaultCtaWrap);
     setIsDismissable(defaultIsDismissable);
     setShowCta(defaultShowCta);
@@ -140,9 +144,9 @@ function App() {
                   setCtaWrap(event.target.checked)
                 }}
               />
-            <label htmlFor="make-dismissable">
-              Wrap CTA label
-            </label>
+              <label htmlFor="make-dismissable">
+                Wrap CTA label
+              </label>
             </div>
           </form>
         </div>
@@ -162,12 +166,52 @@ function App() {
             </label>
           </form>
         </div>
+        <div className="settings--block">
+          <p className="label mb-s">Width</p>
+          <form>
+            <div className="form-wrapper mt-s mb-s">
+              <input
+                type="checkbox"
+                id="alert-width-auto"
+                checked={alertWidthAuto}
+                onChange={event => {
+                  setAlertWidthAuto(event.target.checked);
+                  if (!alertWidthAuto) {
+                    setAlertWidthAuto(true);
+                  }
+                }}
+              />
+              <label htmlFor="alert-width-auto">
+                Auto
+              </label>
+            </div>
+            <div className="form-wrapper">
+              <input
+                disabled={alertWidthAuto}
+                id="alert-width"
+                onChange={e => {
+                  setAlertWidth(e.target.value)
+                }}
+                onKeyDown={e => {
+                  if (e.key === "Enter") {
+                    e.preventDefault();
+                  }
+                }}
+                placeholder="e.g., 640"
+                type="number"
+                value={alertWidth}
+              />
+              <div className="ml-s">px</div>
+            </div>
+          </form>
+        </div>
       </div>
       <div className="section examples">
         <h1>Examples</h1>
         {ALERT_EMPHASES.map(option => (
           <NewAlert
             alertWidth={alertWidth}
+            alertWidthAuto={alertWidthAuto}
             body={txtBody}
             cta={showCta && txtCta}
             ctaWrap={ctaWrap}
