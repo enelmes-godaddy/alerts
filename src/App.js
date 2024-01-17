@@ -79,7 +79,7 @@ function App() {
                   setShowHeader(!showHeader);
                 }}
               />
-              <label className="label" htmlFor="header-text">
+              <label className="label" htmlFor="enable-header-text">
                 Header Text
               </label>
             </div>
@@ -121,7 +121,7 @@ function App() {
                   setShowCta(!showCta);
                 }}
               />
-              <label className="label" htmlFor="cta-label">
+              <label className="label" htmlFor="enable-cta-label">
                 CTA Label
               </label>
             </div>
@@ -137,14 +137,14 @@ function App() {
             <div className="form-wrapper ml-m mt-s">
               <input
                 type="checkbox"
-                id="make-dismissable"
+                id="cta-wrap"
                 checked={ctaWrap}
                 disabled={!showCta}
                 onChange={event => {
                   setCtaWrap(event.target.checked)
                 }}
               />
-              <label htmlFor="make-dismissable">
+              <label htmlFor="cta-wrap">
                 Wrap CTA label
               </label>
             </div>
