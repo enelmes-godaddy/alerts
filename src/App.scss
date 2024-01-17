@@ -8,67 +8,24 @@ $spacing-m: $base-unit * 2; // 16px
 $spacing-l: $base-unit * 3; // 24px
 $spacing-xl: $base-unit * 5; // 40px
 
-$bg--base: #fff;
-$bg--low-contrast: #f5f7f8;
 $color: #111;
 $color--passive: #767676;
 
-/* feedback colours – default */
-$critical: #FFBBBB;
-$highlight: #A6FFF8;
-$info: #D3C1F7;
-$internal: #FBD9ED;
-$neutral: #DDEAF8;
-$success: #9FFFB8;
-$passive: #F4F8FC;
-$premium: $bg--base;
-$warning: #FFEEA9;
-
-$colors: (
-  "critical": $critical,
-  "highlight": $highlight,
-  "info": $neutral,
-  "internal": $passive,
-  "neutral": $neutral,
-  "success": $success,
-  "passive": $passive,
-  "premium": $premium,
-  "warning": $warning
-);
-
-/* feedback colours – high contrast */
-$critical--high-contrast: #DB1802;
-$highlight--high-contrast: #09757A;
-$info--high-contrast: #145FA9;
-$internal--high-contrast: #767676;
-$premium--high-contrast: #B4006C;
-$success--high-contrast: #00A63F;
-$warning--high-contrast: #DE7C00;
-
 $colors--high-contrast: (
-  "critical": $critical--high-contrast,
-  "highlight": $highlight--high-contrast,
-  "info": $info--high-contrast,
-  "internal": $internal--high-contrast,
-  "premium": $premium--high-contrast,
-  "success": $success--high-contrast,
-  "warning": $warning--high-contrast
+  "critical": $ux-feedbackHighContrastCritical-feedbackColor,
+  "highlight": $ux-feedbackHighContrastHighlight-feedbackColor,
+  "info": $ux-feedbackHighContrastNeutral-feedbackColor,
+  "internal": $ux-feedbackHighContrastPassive-feedbackColor,
+  "premium": $ux-feedbackHighContrastPremium-feedbackColor,
+  "success": $ux-feedbackHighContrastSuccess-feedbackColor,
+  "warning": $ux-feedbackHighContrastWarning-feedbackColor
 );
 
-$border-setup: 1px solid #d4dbe0;
-$border-radius-section: 16px;
-$border-radius-form: 8px;
+$border-radius-form: 6px;
 
-$button-border: 1px solid $color;
-$button-border-disabled: 1px solid rgba($color, 0.5);
-$button-border-radius: 6px;
-$button-padding: $spacing-xs $spacing-s;
-
-$alert-border-radius: 8px;
-$alert-gap: $spacing-m;
+$alert-border-radius: 6px;
 $alert-padding-right: $spacing-xl + $spacing-m; // 56px
 $alert-inner-padding: $spacing-l $alert-padding-right $spacing-l $spacing-m;
-$alert-thick-border: 7px; // recommend 8px (Figma says 12px), 1px offset
 
 $dismiss-button-border-radius: 6px; // from Figma minimal icon button
 $dismiss-button-size: 20px;
@@ -77,242 +34,139 @@ $icon-size: 24px;
 
 $font-smaller: 0.9rem;
 
+/****************
+ *** SETUP ******
+ ***************/
 
 .App {
-  margin: $spacing-xl auto;
-  max-width: 2362px;
-  min-width: 900px;
-  overflow: scroll;
-}
+  display: grid;
+  grid-template-columns: 400px auto;
+  height: fit-content;
+  min-height: 100%;
+  overflow-x: hidden;
+  overflow-y: scroll;
 
-/*********************
- *** SECTION *********
- ********************/
-
-.section {
-  border: $border-setup;
-  border-radius: $border-radius-section;
-  margin: 0 $spacing-xl;
-  padding: $spacing-xl;
-
-  &:not(:last-of-type) {
-    margin-bottom: $spacing-l;
+  .section {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-l;
+    padding: $spacing-xl;
   }
 
-  .section--header {
-    align-items: center;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: $spacing-m;
-    justify-content: space-between;
+  .settings {
+    background-color: $ux-boxLowContrast-backgroundColor;
 
-    .header-actions {
+    &--actions {
       display: flex;
-      flex-direction: row;
-      flex-wrap:wrap;
-      gap: $spacing-s;
+      flex-wrap: wrap;
+      gap: $spacing-m;
     }
-  }
 
-  .section--main {
-    gap: $spacing-xl;
-    margin-top: $spacing-m;
-  }
-
-  .subsection {
-    background-color: $bg--low-contrast;
-    border-radius: $border-radius-section;
-    padding: $spacing-l;
-
-    .wrapper {
-      display: grid;
-
-      &.shared {
-        gap: $spacing-xl;
-        grid-template-columns: 1fr 2fr;
+    &--block {
+      input,
+      textarea {
+        border: 1px solid $ux-box-borderColor;
+        border-radius: $border-radius-form;
+        padding: $spacing-s;
+        width: 100%;
       }
-      
-      &.new {
-        grid-template-columns: 1fr;
+
+      input[type="radio"],
+      input[type="checkbox"] {
+        margin-right: $spacing-s;
+        width: auto !important;
+      }
+
+      input:disabled {
+        color: $color--passive;
       }
     }
-  }
-}
 
-/*********************
- *** SETUP ***********
- ********************/
-
-.section.setup {
-  .section--main {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-  }
-
-  .cta-block {
-    display: flex;
-    gap: $spacing-l;
-    flex-direction: row;
-
-    form {
-      width: 100%;
+    .label {
+      display: block;
+      font-size: $font-smaller;
+      font-weight: bold;
     }
-  }
-}
 
-.setup--block {
-  display: flex;
-  flex-direction: column;
-
-  &.horizontal form {
-    display: flex;
-    flex-direction: row;
-    gap: $spacing-l;
-
-    div {
-      margin-bottom: 0 !important;
+    .form-wrapper {
+      align-items: center;
+      display: flex;
     }
   }
 
-  &:not(:last-of-type) {
-    margin-bottom: $spacing-l;
+  .examples {
+    background-color: $ux-box-backgroundColor;
+    overflow-x: hidden;
   }
 
-  form,
-  form div {
-    &:not(:last-of-type) {
-      margin-bottom: $spacing-s;
-    }
-  }
-
-  input,
-  textarea {
-    border: $border-setup;
-    border-radius: $border-radius-form;
-    padding: $spacing-s;
-    width: 100%;
-  }
-
-  input[type="radio"],
-  input[type="checkbox"] {
-    margin-right: $spacing-s;
-    width: auto !important;
-  }
-
-  .label-wrapper {
-    align-items: center;
-    display: flex;
-    gap: $spacing-s;
+  .mb-s {
     margin-bottom: $spacing-s;
-
-    label {
-      margin-bottom: 0;
-    }
   }
-}
 
-/*********************
- *** EXAMPLES ********
- ********************/
-
-.section.examples {
-   .section--main {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+  .ml-m {
+    margin-left: $spacing-m;
   }
-}
 
-div.Alert-Current,
-div.Alert-New {
-  transition: background-color 0.3s ease-in-out, border 0.3s ease-in-out, width 0.8s ease-in-out;
-}
-
-h3,
-p,
-svg path {
-  transition: 0.3s ease-in-out;
-}
-
-.Alert--actions {
-  transition: none;
+  .mt-s {
+    margin-top: $spacing-s;
+  }
 }
 
 /*********************
  *** NEW ALERT *******
  ********************/
 
-.Alert-New {
-  border: 1px solid transparent;
+.NewAlert {
   border-radius: $alert-border-radius;
-  container-name: alert-outer;
-  container-type: inline-size;
   display: flex;
   flex-direction: row;
   gap: $spacing-m;
+  max-width: 100%;
+  min-width: 240px;
   overflow: hidden;
   position: relative;
-
-  @each $color, $value in $colors {
-    &.#{$color} {
-      background-color: $value;
-    }
-
-    &.bg-light.#{$color} {
-      background-color: transparentize($value, 0.5);
-    }
-  }
+  resize: horizontal;
 
   @each $color, $value in $colors--high-contrast {
     &.#{$color} {
-      
-      // simple border matching border-radius value
-      &.border {
-        border: 1px solid $value;
-      }
+      border: 1px solid $value;
+      border-left: 8px solid $value;
 
-      &.border-left {
-        border-left: 8px solid $value;
-        // border-left-width: 8px;
+      .Alert--icon svg path {
+        fill: $value;
       }
-
-      // borders thicker than border-radius
-      // &.border {
-      //   border: 1px solid $value;
-      // }
-      // 
-      // &.border-left::before {
-      //   content: "";
-      //   background-color: $value;
-      //   position: absolute;
-      //   top: -1px;
-      //   bottom: -1px;
-      //   left: 0;
-      //   width: $alert-thick-border;
-      // }
     }
   }
 
-  &.bg-none {
-    background-color: $bg--base !important;
+  .Alert--content {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: $spacing-m;
+    padding: $alert-inner-padding;
+    width: 100%;
   }
 
-  .txt {
-    &-default {
-      .Alert--header h3 {
-        font-size: 20px;
-        line-height: 120%;
-      }
+  .Alert--icon-and-text-wrapper {
+    display: flex;
+    flex-basis: 70%;
+    flex-direction: row;
+    flex-grow: 1;
+    flex-shrink: 1;
+    gap: $spacing-m;
 
-      .Alert--body p {
-        font-size: 16px;
-        line-height: 150%;
-        margin-bottom: 0;
-      }
+    .Alert--icon {
+    height: $icon-size;
+    min-height: $icon-size;
+    min-width: $icon-size;
+    width: $icon-size;
     }
 
-    &-small {
+    .Alert--text-lockup {
+      display: flex;
+      flex-direction: column;
+
       .Alert--header h3 {
         font-size: 18px;
         line-height: 120%;
@@ -326,36 +180,24 @@ svg path {
     }
   }
 
-  .Alert--content {
-    align-items: center;
+  .Alert--action {
     display: flex;
-    flex-direction: row;
-    gap: $spacing-l;
-    justify-content: space-between;
-    padding: $alert-inner-padding;
-    width: 100%;
-  }
+    flex-basis: auto;
+    flex-grow: 0;
+    flex-shrink: 1;
+    max-width: fit-content;
+    padding-left: $spacing-xl;
 
-  .Alert--icon-and-text-wrapper {
-    display: flex;
-    flex-direction: row;
-    gap: $spacing-m;
-  }
-
-  .Alert--icon {
-    height: $icon-size;
-    min-height: $icon-size;
-    min-width: $icon-size;
-    width: $icon-size;
-
-    @each $color, $value in $colors--high-contrast {
-      &.#{$color} svg path {
-        fill: $value !important;
+    &.wrap-cta-label {
+      .ux-button {
+        flex-shrink: 1;
+        min-width: unset;
+        white-space: wrap;
       }
     }
   }
   
-  .button-dismiss {
+  .Alert--dismiss {
     align-items: center;
     background-color: transparent;
     border: none;
@@ -373,62 +215,4 @@ svg path {
       background-color: transparentize($color, 0.9);
     }
   }
-}
-
-/*************************
- *** CONTAINER QUERIES ***
- ************************/
-
-@container alert-outer (max-width: 645px) { // 10px offset for border (9px) and max-width (1px)
-  .Alert-New {
-    .Alert--content {
-      align-items: start;
-      flex-direction: column;
-      gap: $spacing-m;
-    }
-  
-    .Alert--actions {
-      padding-left: $spacing-m + $spacing-l; // 40px
-
-      .ux-button-text {
-        text-wrap: wrap; // wrap button label text
-      }
-    }
-  }
-}
-
-/*********************
- *** GENERIC ETC. ****
- ********************/
-
-h1 {
-  font-size: 1.6rem;
-}
-
-h2 {
-  font-size: 1.2rem;
-  margin-bottom: $spacing-m;
-}
-
-label {
-  text-transform: capitalize;
-}
-
-.label {
-  display: block;
-  font-size: $font-smaller;
-  font-weight: bold;
-  margin-bottom: $spacing-s;
- }
-
- .lowercase {
-  text-transform: lowercase;
- }
-
-.mb-s {
-  margin-bottom: $spacing-s;
-}
-
-.text-passive {
-  color: $color--passive;
 }
