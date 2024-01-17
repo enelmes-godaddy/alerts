@@ -23,10 +23,10 @@ function NewAlert(props) {
                     </div>
                     <div className="Alert--text-lockup">
                         {header && <div className="Alert--header">
-                            <h3 className={classNames({ "mb-s": body })}>{header}</h3>
+                            <h3 className="ux-text ux-text-size1 mb-s">{header}</h3>
                         </div>}
                         {body && <div className="Alert--body">
-                            <p>{body}</p>
+                            <p className="ux-text ux-text-paragraph ux-text-size0">{body}</p>
                         </div>}
                     </div>
                 </div>
