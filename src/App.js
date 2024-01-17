@@ -6,7 +6,6 @@ import NewAlert from "./components/NewAlert";
 import "@ux/alert/styles";
 import "@ux/button/styles";
 import "@ux/icon/delete/index.css";
-import '@ux/text-input/styles';
 import "./App.scss";
 
 
