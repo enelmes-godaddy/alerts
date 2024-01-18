@@ -25,7 +25,7 @@ $border-radius-form: 6px;
 
 $alert-border-radius: 6px;
 $alert-padding-right: $spacing-xl + $spacing-m; // 56px
-$alert-inner-padding: $spacing-l $alert-padding-right $spacing-l $spacing-m;
+$alert-padding: $spacing-l $alert-padding-right $spacing-l $spacing-m;
 
 $dismiss-button-border-radius: 6px; // from Figma minimal icon button
 $dismiss-button-size: 20px;
@@ -128,6 +128,7 @@ $font-smaller: 0.9rem;
   max-width: 100%;
   min-width: 240px;
   overflow: hidden;
+  padding: $alert-padding;
   position: relative;
   resize: horizontal;
 
@@ -143,33 +144,48 @@ $font-smaller: 0.9rem;
   }
 
   .Alert--content {
-    align-items: center;
+    align-items: baseline;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     gap: $spacing-m;
-    padding: $alert-inner-padding;
     width: 100%;
   }
 
-  .Alert--icon-and-text-wrapper {
+  .Alert--icon {
+    align-items: center;
+    justify-content: center;
     display: flex;
-    flex-basis: 70%;
-    flex-direction: row;
-    flex-grow: 1;
-    flex-shrink: 1;
-    gap: $spacing-m;
-
-    .Alert--icon {
-    height: $icon-size;
-    min-height: $icon-size;
-    min-width: $icon-size;
-    width: $icon-size;
+    flex: 0 0 $icon-size;
+    overflow: hidden;
+    
+    svg {
+      height: $icon-size;
+      width: $icon-size;
+      min-height: $icon-size;
+      min-width: $icon-size;
     }
 
-    .Alert--text-lockup {
+    &:after,
+    &:before {
+      content: ".";
+      visibility: hidden;
+    }
+  }
+
+  .Alert--text-and-cta-wrapper {
+    align-items: center;
+    display: flex;
+    flex: 1 1 90%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: $spacing-m;
+
+    .Alert--text {
       display: flex;
+      flex: 1 1 auto;
       flex-direction: column;
+      gap: $spacing-s;
 
       .Alert--header h3 {
         font-weight: 700;
@@ -183,13 +199,10 @@ $font-smaller: 0.9rem;
     }
   }
 
-  .Alert--action {
+  .Alert--cta {
     display: flex;
-    flex-basis: auto;
-    flex-grow: 0;
-    flex-shrink: 1;
+    flex: 0 1 auto;
     max-width: fit-content;
-    padding-left: $spacing-xl;
 
     &.wrap-cta-label {
       .ux-button {
