@@ -2,15 +2,14 @@
 
 This repo contains a prototype for the UXCore Alert component updates from Q1 2024.
 
-Branch `main` shows a simplified prototype of the final redesign.
+Branch `main` shows a prototype of the final redesign.
 
 Previous versions of the prototype can be found on the following branches:
-* `alert-with-container-query`
-* `alert-with-flexbox`
+* `stack-text-and-cta`
+* `alert-with-container-query`*
+* `alert-with-flexbox`*
 
-These previous versions show the old and the new alerts side-by-side.
-
-They also have multiple settings which were no longer needed in the final version.
+\* These previous versions show the old and the new alerts side-by-side. They also have multiple settings which were no longer needed in the final version.
 
 ---
 
