@@ -9,7 +9,7 @@ import "./App.scss";
 function App() {
   const defaultAlertWidth = "";
   const defaultAlertWidthAuto = true;
-  const defaultCtaWrap = false;
+  const defaultCtaWrap = true;
   const defaultIsDismissable = true;
   const defaultShowCta = true;
   const defaultShowHeader = true;

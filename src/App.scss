@@ -95,7 +95,7 @@ $font-smaller: 0.9rem;
 
   .examples {
     background-color: $ux-box-backgroundColor;
-    overflow-x: scroll;
+    overflow-x: hidden;
   }
 
   .mb-s {
@@ -128,8 +128,9 @@ $font-smaller: 0.9rem;
   width: 100%;
   padding: $alert-padding;
   position: relative;
-
+  
   // used for the prototype
+  max-width: 100%;
   overflow: hidden;
   resize: horizontal;
 
