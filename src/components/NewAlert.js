@@ -33,7 +33,9 @@ function NewAlert(props) {
                 </div>}
                 </div>
             </div>
-            {isDismissable && <button className="Alert--dismiss">{DISMISS}</button>}
+            {isDismissable && <div className="Alert--dismiss">
+                <Button design="tertiary" size="small" icon={DISMISS} />
+            </div>}
         </div >
     );
 }

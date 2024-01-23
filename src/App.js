@@ -80,7 +80,7 @@ function App() {
                 }}
               />
               <label className="label" htmlFor="enable-header-text">
-                Header Text
+                Header
               </label>
             </div>
             <input
@@ -97,7 +97,7 @@ function App() {
         <div className="settings--block">
           <form>
             <label className="label mb-s" htmlFor="body-text">
-              Body Text
+              Body
             </label>
             <textarea
               id="body-text"
@@ -122,7 +122,7 @@ function App() {
                 }}
               />
               <label className="label" htmlFor="enable-cta-label">
-                CTA Label
+                CTA
               </label>
             </div>
             <input

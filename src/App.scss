@@ -24,7 +24,8 @@ $colors--high-contrast: (
 $border-radius-form: 6px;
 
 $alert-border-radius: 6px;
-$alert-padding-right: $spacing-xl + $spacing-m; // 56px
+// $alert-padding-right: $spacing-xl + $spacing-m; // 56px
+$alert-padding-right: $spacing-l + $spacing-s; // 32px
 $alert-padding: $spacing-l $alert-padding-right $spacing-l $spacing-m;
 
 $dismiss-button-border-radius: 6px; // from Figma minimal icon button
@@ -121,10 +122,11 @@ $font-smaller: 0.9rem;
  ********************/
 
 .NewAlert {
+  align-items: start;
   border-radius: $alert-border-radius;
   display: flex;
   flex-direction: row;
-  gap: $spacing-m;
+  // gap: $spacing-m;
   max-width: 100%;
   min-width: 240px;
   overflow: hidden;
@@ -166,11 +168,11 @@ $font-smaller: 0.9rem;
       min-width: $icon-size;
     }
 
-    &:after,
-    &:before {
-      content: ".";
-      visibility: hidden;
-    }
+    // &:after,
+    // &:before {
+    //   content: ".";
+    //   visibility: hidden;
+    // }
   }
 
   .Alert--text-and-cta-wrapper {
@@ -204,6 +206,7 @@ $font-smaller: 0.9rem;
     flex: 0 1 auto;
     max-width: fit-content;
 
+    
     &.wrap-cta-label {
       .ux-button {
         flex-shrink: 1;
@@ -214,21 +217,12 @@ $font-smaller: 0.9rem;
   }
   
   .Alert--dismiss {
-    align-items: center;
-    background-color: transparent;
-    border: none;
-    border-radius: $dismiss-button-border-radius;
-    cursor: pointer;
-    display: flex;
-    height: $dismiss-button-size;
-    justify-content: center;
     position: absolute;
-    right: $spacing-m;
-    top: $spacing-m;
-    width: $dismiss-button-size;
+    top: $spacing-s;
+    right: $spacing-s;
 
-    &:hover {
-      background-color: transparentize($color, 0.9);
+    .ux-button {
+      padding: 2px !important;
     }
   }
 }
