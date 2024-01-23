@@ -122,7 +122,6 @@ $font-smaller: 0.9rem;
  ********************/
 
 .NewAlert {
-  align-items: start;
   border-radius: $alert-border-radius;
   display: flex;
   flex-direction: row;
@@ -168,11 +167,11 @@ $font-smaller: 0.9rem;
       min-width: $icon-size;
     }
 
-    // &:after,
-    // &:before {
-    //   content: ".";
-    //   visibility: hidden;
-    // }
+    &:after,
+    &:before {
+      content: ".";
+      visibility: hidden;
+    }
   }
 
   .Alert--text-and-cta-wrapper {
