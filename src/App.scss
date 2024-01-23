@@ -23,10 +23,8 @@ $colors--high-contrast: (
 
 $border-radius-form: 6px;
 
-$alert-border-radius: 6px;
-// $alert-padding-right: $spacing-xl + $spacing-m; // 56px
-$alert-padding-right: $spacing-l + $spacing-s; // 32px
-$alert-padding: $spacing-l $alert-padding-right $spacing-l $spacing-m;
+$alert-border-radius: 16px;
+$alert-padding: $spacing-m;
 
 $dismiss-button-border-radius: 6px; // from Figma minimal icon button
 $dismiss-button-size: 20px;
@@ -97,7 +95,7 @@ $font-smaller: 0.9rem;
 
   .examples {
     background-color: $ux-box-backgroundColor;
-    overflow-x: hidden;
+    overflow-x: scroll;
   }
 
   .mb-s {
@@ -124,19 +122,21 @@ $font-smaller: 0.9rem;
 .NewAlert {
   border-radius: $alert-border-radius;
   display: flex;
-  flex-direction: row;
-  // gap: $spacing-m;
-  max-width: 100%;
-  min-width: 240px;
-  overflow: hidden;
+  flex-flow: row nowrap;
+  gap: $spacing-m;
+  min-width: min-content;
+  width: 100%;
   padding: $alert-padding;
   position: relative;
+
+  // used for the prototype
+  overflow: hidden;
   resize: horizontal;
 
   @each $color, $value in $colors--high-contrast {
     &.#{$color} {
       border: 1px solid $value;
-      border-left: 8px solid $value;
+      border-left: $alert-border-radius solid $value;
 
       .Alert--icon svg path {
         fill: $value;
@@ -147,17 +147,18 @@ $font-smaller: 0.9rem;
   .Alert--content {
     align-items: baseline;
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    flex: 1 1 0;
+    flex-flow: row wrap;
     gap: $spacing-s;
     width: 100%;
+    min-width: 0;
   }
 
   .Alert--icon {
     align-items: center;
     justify-content: center;
     display: flex;
-    flex: 0 0 $icon-size;
+    flex: 0 0 auto;
     overflow: hidden;
     
     svg {
@@ -187,16 +188,6 @@ $font-smaller: 0.9rem;
       flex: 1 1 70%;
       flex-direction: column;
       gap: $spacing-s;
-
-      .Alert--header h3 {
-        font-weight: 700;
-        line-height: 120%;
-      }
-
-      .Alert--body p {
-        line-height: 150%;
-        margin-bottom: 0;
-      }
     }
   }
 
@@ -214,14 +205,9 @@ $font-smaller: 0.9rem;
       }
     }
   }
-  
-  .Alert--dismiss {
-    position: absolute;
-    top: $spacing-s;
-    right: $spacing-s;
 
-    .ux-button {
-      padding: 2px !important;
-    }
+  .Alert--dismiss {
+    flex: 0 0 auto;
+    padding-top: 2px; // to align with alert icon
   }
 }

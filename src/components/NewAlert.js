@@ -1,6 +1,7 @@
 import React from "react";
 import classNames from "classnames";
 import Button from '@ux/button';
+import Text from '@ux/text';
 import { ALERT_ICONS, DISMISS } from "../AlertSettings";
 import '@ux/button/styles';
 
@@ -22,10 +23,10 @@ function NewAlert(props) {
                 <div className="Alert--text-and-cta-wrapper">
                     <div className="Alert--text">
                         {header && <div className="Alert--header">
-                            <h3 className="ux-text ux-text-size1">{header}</h3>
+                            <Text.H3 as="title" size={-2} text={header} />
                         </div>}
                         {body && <div className="Alert--body">
-                            <p className="ux-text ux-text-paragraph ux-text-size0">{body}</p>
+                            <Text.P as="paragraph" size={-1} text={body} />
                         </div>}
                     </div>
                 {cta && <div className={classNames("Alert--cta", { "wrap-cta-label": ctaWrap })}>
@@ -34,7 +35,7 @@ function NewAlert(props) {
                 </div>
             </div>
             {isDismissable && <div className="Alert--dismiss">
-                <Button design="tertiary" size="small" icon={DISMISS} />
+                <Button design="inline" size="small" icon={DISMISS} />
             </div>}
         </div >
     );
